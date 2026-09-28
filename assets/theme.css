@@ -427,6 +427,24 @@ html[data-theme="dark"] .admin-auth-form-footer {
   color: #a6b7ae;
 }
 
+html[data-theme="dark"] .admin-auth-form-eyebrow {
+  border-color: #345443;
+  background: #1c3328;
+  color: #a0dfc1;
+}
+
+html[data-theme="dark"] .admin-auth-top-actions .theme-mode-toggle {
+  border-color: #3b5147;
+  background: #202e27;
+  color: #b9d2c5;
+}
+
+html[data-theme="dark"] .admin-auth-top-actions .theme-mode-toggle:hover {
+  border-color: #62947b;
+  background: #294338;
+  color: #c8f0d8;
+}
+
 html[data-theme="dark"] .admin-auth-alert {
   border-color: #6e4034;
   background: #35231f;
