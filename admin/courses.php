@@ -91,46 +91,77 @@ $courses = $database->query('SELECT courses.*, COUNT(lessons.id) AS lesson_count
     <?php if (isset($_GET['saved'])): ?><div class="alert alert-success">Course saved.</div><?php endif; ?>
     <?php if (isset($_GET['deleted'])): ?><div class="alert alert-success">Course and its lessons deleted.</div><?php endif; ?>
 
-    <section class="admin-form-section mb-4">
-      <h2 class="h5 fw-bold mb-3"><?= $editing ? 'Edit course' : 'Add a course' ?></h2>
-      <form method="post" class="row g-3">
+    <section class="admin-form-section course-editor-card mb-4" id="course-editor-card">
+      <div class="course-panel-heading">
+        <span class="course-panel-icon" aria-hidden="true"><i class="bi bi-journal-plus"></i></span>
+        <div>
+          <p class="course-panel-kicker mb-1"><?= $editing ? 'UPDATE YOUR LIBRARY' : 'BUILD YOUR LIBRARY' ?></p>
+          <h2 class="h5 fw-bold mb-1"><?= $editing ? 'Edit course' : 'Add a course' ?></h2>
+          <p class="small text-muted mb-0">Create a clear learning track learners can follow.</p>
+        </div>
+      </div>
+      <form method="post" class="row g-3 course-editor-form">
         <input type="hidden" name="csrf_token" value="<?= e(csrf_token()) ?>">
         <input type="hidden" name="id" value="<?= e($editing['id'] ?? '') ?>">
-        <div class="col-md-6"><label class="form-label">Course title<input class="form-control" name="title" maxlength="190" required value="<?= e($editing['title'] ?? '') ?>"></label></div>
-        <div class="col-md-3"><label class="form-label">Category<input class="form-control" name="category" maxlength="100" value="<?= e($editing['category'] ?? 'Development') ?>"></label></div>
-        <div class="col-md-3"><label class="form-label">Level<select class="form-select" name="level"><?php foreach (['Beginner', 'Intermediate', 'Advanced'] as $level): ?><option value="<?= e($level) ?>" <?= ($editing['level'] ?? 'Beginner') === $level ? 'selected' : '' ?>><?= e($level) ?></option><?php endforeach; ?></select></label></div>
-        <div class="col-12"><label class="form-label">Description<textarea class="form-control" name="description" rows="2" maxlength="2000" required><?= e($editing['description'] ?? '') ?></textarea></label></div>
-        <div class="col-12 d-flex flex-wrap align-items-center gap-3">
-          <label class="form-check"><input class="form-check-input" type="checkbox" name="is_published" value="1" <?= !empty($editing['is_published']) ? 'checked' : '' ?>><span class="form-check-label">Published</span></label>
-          <button class="btn btn-blue" type="submit"><i class="bi bi-check2 me-1"></i><?= $editing ? 'Save course' : 'Create course' ?></button>
-          <?php if ($editing): ?><a class="btn btn-link" href="courses.php">Cancel edit</a><?php endif; ?>
+        <div class="col-md-6"><label class="form-label" for="courseTitle">Course title</label><input class="form-control" id="courseTitle" name="title" maxlength="190" required placeholder="e.g. AI Agents &amp; MCP with Python" value="<?= e($editing['title'] ?? '') ?>"></div>
+        <div class="col-md-3"><label class="form-label" for="courseCategory">Category</label><input class="form-control" id="courseCategory" name="category" maxlength="100" placeholder="e.g. AI Engineering" value="<?= e($editing['category'] ?? 'Development') ?>"></div>
+        <div class="col-md-3"><label class="form-label" for="courseLevel">Level</label><select class="form-select" id="courseLevel" name="level"><?php foreach (['Beginner', 'Intermediate', 'Advanced'] as $level): ?><option value="<?= e($level) ?>" <?= ($editing['level'] ?? 'Beginner') === $level ? 'selected' : '' ?>><?= e($level) ?></option><?php endforeach; ?></select></div>
+        <div class="col-12"><label class="form-label" for="courseDescription">Description</label><textarea class="form-control" id="courseDescription" name="description" rows="3" maxlength="2000" required placeholder="Describe what learners will understand or build by the end of this course."><?= e($editing['description'] ?? '') ?></textarea><div class="form-text">A short, specific summary helps learners choose the right course.</div></div>
+        <div class="col-12 course-editor-actions">
+          <label class="form-check form-switch course-publish-switch"><input class="form-check-input" type="checkbox" role="switch" name="is_published" value="1" <?= !empty($editing['is_published']) ? 'checked' : '' ?>><span><span class="form-check-label d-block">Publish course</span><span class="course-publish-hint">Make this track visible on the learner site.</span></span></label>
+          <div class="course-form-buttons">
+          <?php if ($editing): ?><a class="btn btn-outline-secondary" href="courses.php">Cancel</a><?php endif; ?>
+          <button class="btn btn-blue course-submit-button" type="submit"><i class="bi <?= $editing ? 'bi-check2' : 'bi-plus-lg' ?> me-1"></i><?= $editing ? 'Save changes' : 'Create course' ?><i class="bi bi-arrow-right ms-2" aria-hidden="true"></i></button>
+          </div>
         </div>
       </form>
     </section>
 
-    <section class="admin-form-section">
-      <div class="table-responsive">
-        <table class="table align-middle mb-0">
-          <thead><tr><th>Course</th><th>Level</th><th>Lessons</th><th>Status</th><th class="text-end">Actions</th></tr></thead>
-          <tbody>
+    <section class="admin-form-section course-library-panel" aria-labelledby="course-library-title">
+      <header class="course-library-heading">
+        <div>
+          <p class="course-panel-kicker mb-1">YOUR CONTENT</p>
+          <h2 class="h5 fw-bold mb-1" id="course-library-title">Course library</h2>
+          <p class="small text-muted mb-0">Manage tracks, lesson counts, and publishing status.</p>
+        </div>
+        <div class="course-library-tools">
+          <span class="course-count"><i class="bi bi-collection me-1" aria-hidden="true"></i><?= count($courses) ?> <?= count($courses) === 1 ? 'course' : 'courses' ?></span>
+          <a class="btn btn-outline-primary btn-sm" href="#course-editor-card"><i class="bi bi-plus-lg me-1" aria-hidden="true"></i>Add course</a>
+        </div>
+      </header>
+      <?php if ($courses === []): ?>
+        <div class="course-empty-state"><span class="course-empty-icon"><i class="bi bi-journal-bookmark"></i></span><h3 class="h6 fw-bold">Your library is ready for its first course</h3><p class="small text-muted mb-0">Use the form above to create a learning track.</p></div>
+      <?php else: ?>
+        <div class="course-card-grid">
           <?php foreach ($courses as $course): ?>
-            <tr>
-              <td><div class="fw-semibold"><?= e($course['title']) ?></div><div class="small text-muted"><?= e($course['category']) ?></div></td>
-              <td><?= e($course['level']) ?></td><td><?= (int) $course['lesson_count'] ?></td>
-              <td><span class="badge <?= $course['is_published'] ? 'bg-success-subtle text-success' : 'bg-secondary-subtle text-secondary' ?>"><?= $course['is_published'] ? 'Published' : 'Draft' ?></span></td>
-              <td class="text-end text-nowrap">
-                <a class="btn btn-sm btn-light border" href="courses.php?edit=<?= (int) $course['id'] ?>" aria-label="Edit course"><i class="bi bi-pencil"></i></a>
-                <form method="post" class="d-inline" onsubmit="return confirm('Delete this course and all its lessons? This cannot be undone.');">
-                  <input type="hidden" name="csrf_token" value="<?= e(csrf_token()) ?>"><input type="hidden" name="id" value="<?= (int) $course['id'] ?>"><input type="hidden" name="action" value="delete">
-                  <button class="btn btn-sm btn-light border text-danger" type="submit" aria-label="Delete course"><i class="bi bi-trash"></i></button>
-                </form>
-              </td>
-            </tr>
+            <article class="course-card">
+              <div class="course-card-topline">
+                <span class="course-card-icon" aria-hidden="true"><i class="bi bi-mortarboard-fill"></i></span>
+                <span class="course-status <?= $course['is_published'] ? 'is-published' : 'is-draft' ?>"><span aria-hidden="true"></span><?= $course['is_published'] ? 'Published' : 'Draft' ?></span>
+              </div>
+              <div class="course-card-copy">
+                <p class="course-card-category"><?= e($course['category']) ?></p>
+                <h3><?= e($course['title']) ?></h3>
+                <p class="course-card-description"><?= e($course['description']) ?></p>
+              </div>
+              <div class="course-card-meta">
+                <span><i class="bi bi-bar-chart-line" aria-hidden="true"></i><?= e($course['level']) ?></span>
+                <span><i class="bi bi-journal-text" aria-hidden="true"></i><strong><?= (int) $course['lesson_count'] ?></strong> <?= (int) $course['lesson_count'] === 1 ? 'lesson' : 'lessons' ?></span>
+              </div>
+              <footer class="course-card-footer">
+                <span class="course-card-footer-label">COURSE TRACK</span>
+                <div class="course-card-actions">
+                  <a class="btn btn-sm course-action-button" href="courses.php?edit=<?= (int) $course['id'] ?>" aria-label="Edit <?= e($course['title']) ?>" title="Edit course"><i class="bi bi-pencil-square" aria-hidden="true"></i><span>Edit</span></a>
+                  <form method="post" onsubmit="return confirm('Delete this course and all its lessons? This cannot be undone.');">
+                    <input type="hidden" name="csrf_token" value="<?= e(csrf_token()) ?>"><input type="hidden" name="id" value="<?= (int) $course['id'] ?>"><input type="hidden" name="action" value="delete">
+                    <button class="btn btn-sm course-action-button course-delete-button" type="submit" aria-label="Delete <?= e($course['title']) ?>" title="Delete course"><i class="bi bi-trash3" aria-hidden="true"></i><span>Delete</span></button>
+                  </form>
+                </div>
+              </footer>
+            </article>
           <?php endforeach; ?>
-          <?php if ($courses === []): ?><tr><td colspan="5" class="text-center text-muted py-4">No courses yet.</td></tr><?php endif; ?>
-          </tbody>
-        </table>
-      </div>
+        </div>
+      <?php endif; ?>
     </section>
       </div>
     </main>
