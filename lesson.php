@@ -10,7 +10,7 @@ $navigationLessons = [];
 
 try {
     $database = db();
-    $courses = $database->query('SELECT id, slug, title FROM courses WHERE is_published = 1 ORDER BY title')->fetchAll();
+    $courses = $database->query('SELECT id, slug, title, level FROM courses WHERE is_published = 1 ORDER BY title')->fetchAll();
     $navigationLessons = $database->query('SELECT lessons.id, lessons.course_id, lessons.title, lessons.topic, lessons.slug FROM lessons JOIN courses ON courses.id = lessons.course_id WHERE lessons.is_published = 1 AND courses.is_published = 1 ORDER BY courses.title, lessons.position, lessons.title')->fetchAll();
     $statement = $database->prepare('SELECT lessons.*, courses.title AS course_title, courses.slug AS course_slug FROM lessons JOIN courses ON courses.id = lessons.course_id WHERE lessons.id = :id AND lessons.is_published = 1 AND courses.is_published = 1 LIMIT 1');
     $statement->execute(['id' => max(0, (int) ($_GET['id'] ?? 0))]);
