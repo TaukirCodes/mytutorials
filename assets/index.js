@@ -49,7 +49,11 @@ function refreshProgress() {
   if (recommendation && recommendationLink && nextRow) {
     recommendation.hidden = false;
     recommendationLink.href = nextRow.href;
-    recommendationLink.textContent = nextRow.querySelector('strong')?.textContent ?? 'Continue learning';
+    const lessonTitle = nextRow.querySelector('strong')?.textContent ?? 'Continue learning';
+    const title = recommendationLink.querySelector('[data-next-lesson-title]');
+    if (title) title.textContent = `Continue: ${lessonTitle}`;
+    const meta = recommendation.querySelector('[data-next-lesson-meta]');
+    if (meta) meta.textContent = nextRow.querySelector('.lesson-row-copy > span:first-child')?.textContent ?? 'Picked for your next step.';
   } else if (recommendation) {
     recommendation.hidden = true;
   }

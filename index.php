@@ -64,19 +64,19 @@ try {
         <header class="learning-heading mb-4">
           <div>
             <p class="eyebrow mb-2">DEV DOCS / LEARNING LIBRARY</p>
-            <h1 class="h2 fw-bold mb-2"><?= $searchTerm !== '' ? 'Search results' : ($courseSlug !== '' ? 'Course lessons' : 'Build a stronger foundation') ?></h1>
-            <p class="text-muted mb-0"><?= $searchTerm !== '' ? 'Lessons matching “' . e($searchTerm) . '”' : 'Focused, practical tutorials with examples you can reuse.' ?></p>
+            <h1 class="h2 fw-bold mb-2"><?= $searchTerm !== '' ? 'Search results' : ($courseSlug !== '' ? 'Course lessons' : 'Your developer learning space') ?></h1>
+            <p class="text-muted mb-0"><?= $searchTerm !== '' ? 'Lessons matching “' . e($searchTerm) . '”' : 'Pick up where you left off, or choose a new skill to explore.' ?></p>
           </div>
           <div class="learning-stats"><span><?= count($courses) ?> tracks</span><span><?= count($navigationLessons) ?> lessons</span><span data-progress-summary>0 completed in this browser</span></div>
         </header>
-        <div class="learning-recommendation mb-4" data-next-lesson hidden><span><i class="bi bi-compass me-1" aria-hidden="true"></i>Suggested next</span><a data-next-lesson-link href="#">Continue learning</a></div>
 
         <?php if ($databaseError !== ''): ?><div class="alert alert-warning" role="alert"><?= e($databaseError) ?></div><?php endif; ?>
 
         <?php if ($searchTerm === '' && $courseSlug === ''): ?>
-        <section class="lesson-feature mb-5" aria-labelledby="feature-title">
-          <div><p class="eyebrow mb-2">START LEARNING</p><h2 class="h3 fw-bold" id="feature-title">Small lessons. Real working code.</h2><p class="mb-3">Choose a track, explore its chapters, and keep your progress in this browser.</p><a class="btn btn-light btn-sm fw-semibold" href="#courses">Browse learning tracks <i class="bi bi-arrow-down ms-1"></i></a></div>
-          <i class="bi bi-braces feature-mark" aria-hidden="true"></i>
+        <section class="continue-panel mb-5" data-next-lesson hidden aria-labelledby="continue-title">
+          <div class="continue-panel-icon"><i class="bi bi-play-fill" aria-hidden="true"></i></div>
+          <div class="continue-panel-copy"><p class="eyebrow mb-1">YOUR NEXT STEP</p><h2 class="h4 fw-bold mb-1" id="continue-title">Continue learning</h2><p class="small mb-0" data-next-lesson-meta>Pick up with the next lesson in your library.</p></div>
+          <a class="btn btn-light fw-semibold" data-next-lesson-link href="#"><span data-next-lesson-title>Open lesson</span> <i class="bi bi-arrow-up-right ms-1" aria-hidden="true"></i></a>
         </section>
         <?php endif; ?>
 
