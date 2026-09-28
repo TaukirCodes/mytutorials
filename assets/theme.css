@@ -156,6 +156,10 @@ html[data-theme="dark"] .sidebar-footer {
   color: #a8b7af;
 }
 
+html[data-theme="dark"] .sidebar-path-list {
+  scrollbar-color: #496156 transparent;
+}
+
 html[data-theme="dark"] .continue-panel {
   border-color: #355347;
   background: linear-gradient(100deg, #20392e, #182720 72%);
@@ -165,6 +169,30 @@ html[data-theme="dark"] .content-language-note {
   border-color: #aa8e4d;
   background: #35301f;
   color: #e5d7ab;
+}
+
+html[data-theme="dark"] .course-tone-1 .course-category {
+  background: #39331f;
+  color: #e6d08a;
+}
+
+html[data-theme="dark"] .course-tone-2 .course-category {
+  background: #3b2923;
+  color: #efaa93;
+}
+
+html[data-theme="dark"] .lesson-row:hover,
+html[data-theme="dark"] .smart-result-row:hover {
+  background: #24372e;
+  color: #f0f6f2;
+}
+
+html[data-theme="dark"] .lesson-prose {
+  color: #cbd8d1;
+}
+
+html[data-theme="dark"] .quiz-option {
+  border-color: #34453d;
 }
 
 html[data-theme="dark"] .admin-page-content .text-dark,
@@ -293,6 +321,10 @@ html[data-theme="dark"] .table > :not(caption) > * > * {
   box-shadow: inset 0 0 0 9999px transparent;
 }
 
+html[data-theme="dark"] .content-activity .table > :not(caption) > * > * {
+  border-bottom-color: var(--border);
+}
+
 html[data-theme="dark"] .table-light,
 html[data-theme="dark"] .table-light > :not(caption) > * > * {
   background-color: #202d27;
@@ -318,6 +350,32 @@ html[data-theme="dark"] .btn-light {
 
 html[data-theme="dark"] .btn-light:hover {
   background-color: #2a3a32 !important;
+}
+
+html[data-theme="dark"] .btn-blue {
+  border-color: #116c59;
+  background-color: #116c59;
+  color: #fff;
+}
+
+html[data-theme="dark"] .btn-blue:hover {
+  border-color: #0c594a;
+  background-color: #0c594a;
+  color: #fff;
+}
+
+html[data-theme="dark"] .btn-outline-primary {
+  --bs-btn-hover-color: #10251d;
+  --bs-btn-active-color: #10251d;
+}
+
+html[data-theme="dark"] .btn-primary {
+  --bs-btn-bg: #116c59;
+  --bs-btn-border-color: #116c59;
+  --bs-btn-hover-bg: #0c594a;
+  --bs-btn-hover-border-color: #0c594a;
+  --bs-btn-active-bg: #0c594a;
+  --bs-btn-active-border-color: #0c594a;
 }
 
 html[data-theme="dark"] .btn-outline-secondary {
@@ -428,6 +486,16 @@ html[data-theme="dark"] .auth-panel h1 {
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
+}
+
+html[data-theme="dark"] .admin-auth-setup-note-error {
+  border-color: #6e4034;
+  background: #35231f;
+  color: #efb8a4;
+}
+
+html[data-theme="dark"] .admin-auth-setup-note-error p {
+  color: #dbad9b;
 }
 
 @media (prefers-reduced-motion: reduce) {
