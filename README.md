@@ -14,12 +14,12 @@ PHP 8 and Bootstrap 5 tutorial portal with a learner library, admin publishing t
 
 - Learners can browse published courses and lessons, search lesson content, answer quizzes, save lessons, and keep completion progress in the current browser.
 - Admins can create, edit, publish, and delete courses and lessons. Lesson quiz changes are saved with the lesson.
-- Admin lesson drafts and natural-language search can use OpenAI after an explicit consent checkbox and confirmation. AI-generated content remains unpublished until an admin reviews and saves it.
+- Admin lesson drafts and natural-language search can use Groq after an explicit consent checkbox and confirmation. AI-generated content remains unpublished until an admin reviews and saves it.
 - AI requests send only the context needed for that action. Submitted code is reviewed as text and is never executed by the server. Requests are limited to 10 per session per minute.
 
 ## OpenAI
 
-Add an OpenAI API key to the local `.env` file as `OPENAI_API_KEY`. The key is read only by PHP and must never be committed or pasted into browser JavaScript. AI requests are unavailable until a key is configured; the rest of the portal works without one. OpenAI usage may incur charges.
+Add a Groq API key to the local `.env` file as `GROQ_API_KEY` (copy `.env.example` to `.env` first). The key is read only by PHP and must never be committed or pasted into browser JavaScript. AI requests are unavailable until a key is configured; the rest of the portal works without one. Groq offers a free developer tier with rate limits; check your Groq account for current limits and model access.
 
 ## Save-to-GitHub automation
 
