@@ -375,21 +375,22 @@
     }
     .learning-heading > div:first-child {
       min-width: 0;
-    }
+        margin-left: 0;
+        transform: translateX(-100%);
+        transition: transform 220ms ease, box-shadow 220ms ease;
     .learning-title {
       white-space: nowrap;
     }
-    .title-accent {
+        transform: translateX(0);
       color: var(--accent-hover);
       text-decoration: underline;
       text-decoration-color: var(--accent-citrus);
       text-decoration-thickness: 0.1em;
       text-underline-offset: 0.16em;
-    }
     .eyebrow {
       color: var(--accent);
       font-size: 0.7rem;
-      font-weight: 700;
+        transform: translateX(0);
       letter-spacing: 0.08em;
     }
     .learning-stats {
