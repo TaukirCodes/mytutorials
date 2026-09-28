@@ -221,6 +221,12 @@
   gap: 1rem;
 }
 
+.admin-auth-top-actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
 .admin-auth-mobile-brand {
   display: none;
   color: var(--auth-ink);
