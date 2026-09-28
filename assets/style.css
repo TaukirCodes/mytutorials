@@ -5,6 +5,9 @@
       --accent: #087f78;
       --accent-hover: #06665f;
       --accent-soft: #e2f2ef;
+      --accent-citrus: #b78321;
+      --accent-citrus-soft: #f7efd9;
+      --accent-coral: #c5654f;
       --bg-main: #f4f7f5;
       --surface: #ffffff;
       --border: #dce5e1;
@@ -34,6 +37,23 @@
     .navbar-slate {
       background-color: var(--ink) !important;
       border-bottom: 1px solid var(--ink-border);
+    }
+    .language-picker-label {
+      margin-right: 0.4rem;
+      color: #bdcec8;
+      font-size: 0.74rem;
+    }
+    .language-picker {
+      width: auto;
+      min-width: 112px;
+      border-color: #4b605b;
+      background-color: #293c38;
+      color: #f4f8f6;
+      font-size: 0.78rem;
+    }
+    .language-picker:focus {
+      border-color: #8dcab3;
+      box-shadow: 0 0 0 0.2rem rgba(141, 202, 179, 0.2);
     }
 
     .wrapper {
@@ -150,6 +170,10 @@
       color: var(--text-muted);
       font-size: 0.8rem;
     }
+    .learning-stats strong {
+      color: var(--accent-citrus);
+      font-size: 0.95rem;
+    }
     .continue-panel {
       display: grid;
       grid-template-columns: 48px minmax(0, 1fr) auto;
@@ -179,6 +203,63 @@
     }
     .continue-panel-copy .h4 {
       color: var(--ink);
+    }
+    .new-learner-panel {
+      position: relative;
+      display: flex;
+      min-height: 210px;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+      overflow: hidden;
+      padding: 2rem 2.25rem;
+      border: 1px solid #31584e;
+      border-radius: 6px;
+      background-color: #1d4942;
+      background-image: repeating-linear-gradient(135deg, transparent 0 24px, rgba(255, 255, 255, 0.04) 24px 25px);
+      color: #fff;
+    }
+    .new-learner-panel[hidden] {
+      display: none;
+    }
+    .new-learner-copy {
+      max-width: 680px;
+    }
+    .new-learner-copy .eyebrow {
+      color: #e1bd69;
+    }
+    .new-learner-copy p:last-child {
+      max-width: 56ch;
+      color: #d4e4dc;
+    }
+    .new-learner-mark {
+      position: absolute;
+      right: 2rem;
+      bottom: -1rem;
+      color: rgba(218, 235, 225, 0.15);
+      font-size: 9rem;
+      line-height: 1;
+      pointer-events: none;
+    }
+    .new-learner-panel > .btn {
+      z-index: 1;
+      flex: 0 0 auto;
+      color: var(--ink);
+    }
+    .content-language-note {
+      margin: -0.75rem 0 1.25rem;
+      padding: 0.55rem 0.75rem;
+      border-left: 3px solid var(--accent-citrus);
+      background: var(--accent-citrus-soft);
+      color: #59491f;
+      font-size: 0.78rem;
+    }
+    .content-language-note[hidden] {
+      display: none;
+    }
+    .section-aside {
+      color: var(--text-muted);
+      font-size: 0.76rem;
     }
     .lesson-feature {
       display: flex;
@@ -219,6 +300,7 @@
       flex-direction: column;
       padding: 1.25rem;
       border: 1px solid var(--border);
+      border-top: 3px solid var(--accent);
       border-radius: 6px;
       background: var(--surface);
       transition: border-color 150ms ease, transform 150ms ease;
@@ -228,9 +310,35 @@
       border-color: #9bc9bb;
     }
     .course-category {
+      padding: 0.28rem 0.5rem;
+      border-radius: 4px;
+      background: var(--accent-soft);
       color: var(--accent-hover);
       font-size: 0.72rem;
       font-weight: 700;
+    }
+    .course-icon {
+      color: var(--accent);
+    }
+    .course-tone-1 {
+      border-top-color: var(--accent-citrus);
+    }
+    .course-tone-1 .course-category {
+      background: var(--accent-citrus-soft);
+      color: #705514;
+    }
+    .course-tone-1 .course-icon {
+      color: var(--accent-citrus);
+    }
+    .course-tone-2 {
+      border-top-color: var(--accent-coral);
+    }
+    .course-tone-2 .course-category {
+      background: #f8e9e4;
+      color: #8b4534;
+    }
+    .course-tone-2 .course-icon {
+      color: var(--accent-coral);
     }
     .lesson-list {
       border-top: 1px solid var(--border);
@@ -418,6 +526,17 @@
         min-height: auto;
         padding: 1.5rem;
       }
+      .new-learner-panel {
+        align-items: flex-start;
+        flex-direction: column;
+        min-height: auto;
+        padding: 1.5rem;
+      }
+      .new-learner-mark {
+        right: 0.4rem;
+        bottom: 1rem;
+        font-size: 6rem;
+      }
       .continue-panel {
         grid-template-columns: 38px minmax(0, 1fr);
         gap: 0.75rem;
@@ -456,5 +575,8 @@
       }
       .smart-search-form button {
         justify-self: start;
+      }
+      .language-picker-label {
+        margin-top: 0.6rem;
       }
     }
