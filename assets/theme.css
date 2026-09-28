@@ -472,6 +472,13 @@ html[data-theme="dark"] .admin-auth-input-wrap .form-control:focus {
   background: #15221b;
 }
 
+html[data-theme="dark"] .admin-auth-input-wrap .form-control:-webkit-autofill,
+html[data-theme="dark"] .admin-auth-input-wrap .form-control:-webkit-autofill:hover,
+html[data-theme="dark"] .admin-auth-input-wrap .form-control:-webkit-autofill:focus {
+  -webkit-text-fill-color: #e2eee8;
+  -webkit-box-shadow: 0 0 0 1000px #111c17 inset;
+}
+
 html[data-theme="dark"] .admin-auth-password-toggle {
   color: #bccbc3;
 }
