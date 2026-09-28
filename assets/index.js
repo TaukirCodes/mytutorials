@@ -9,7 +9,10 @@ let showSavedOnly = false;
 const translations = {
   en: {
     'nav.explorer': 'Explore', 'nav.courses': 'Learning paths', 'nav.admin': 'Admin portal',
-    'nav.language': 'Language', 'course.open': 'Open path',
+    'nav.language': 'Language', 'nav.search.placeholder': 'Search lessons and topics...',
+    'nav.search.label': 'Search lessons and topics', 'nav.search.action': 'Search',
+    'sidebar.heading': 'Learning paths', 'sidebar.empty': 'No published courses yet.',
+    'footer.note': 'A practical place to grow your developer skills.', 'course.open': 'Open path',
     'home.kicker': 'DEV DOCS / LEARNING LIBRARY', 'home.title': 'Your developer learning space',
     'home.description': 'Pick up where you left off, or choose a new skill to explore.',
     'home.continue.kicker': 'PICK UP WHERE YOU LEFT OFF', 'home.continue.title': 'Continue learning',
@@ -37,7 +40,10 @@ const translations = {
   },
   hi: {
     'nav.explorer': 'सीखें', 'nav.courses': 'लर्निंग पाथ', 'nav.admin': 'एडमिन पोर्टल',
-    'nav.language': 'भाषा', 'course.open': 'पाथ खोलें',
+    'nav.language': 'भाषा', 'nav.search.placeholder': 'Lessons और topics खोजें...',
+    'nav.search.label': 'Lessons और topics खोजें', 'nav.search.action': 'खोजें',
+    'sidebar.heading': 'लर्निंग पाथ', 'sidebar.empty': 'अभी कोई published course नहीं है।',
+    'footer.note': 'Developer skills को practical तरीके से बढ़ाएँ।', 'course.open': 'पाथ खोलें',
     'home.kicker': 'DEV DOCS / लर्निंग लाइब्रेरी', 'home.title': 'आपकी डेवलपर लर्निंग स्पेस',
     'home.description': 'जहाँ छोड़ा था वहीं से शुरू करें, या कोई नई स्किल चुनें।',
     'home.continue.kicker': 'यहीं से आगे बढ़ें', 'home.continue.title': 'सीखना जारी रखें',
@@ -65,7 +71,10 @@ const translations = {
   },
   hinglish: {
     'nav.explorer': 'Explore karo', 'nav.courses': 'Learning paths', 'nav.admin': 'Admin portal',
-    'nav.language': 'Language', 'course.open': 'Path kholein',
+    'nav.language': 'Bhasha', 'nav.search.placeholder': 'Lessons aur topics search karein...',
+    'nav.search.label': 'Lessons aur topics search karein', 'nav.search.action': 'Search',
+    'sidebar.heading': 'Learning paths', 'sidebar.empty': 'Abhi koi published course nahi hai.',
+    'footer.note': 'Developer skills ko practical tareeke se grow karein.', 'course.open': 'Path kholein',
     'home.kicker': 'DEV DOCS / LEARNING LIBRARY', 'home.title': 'Aapki developer learning space',
     'home.description': 'Jahan chhoda tha wahan se continue karein, ya nayi skill explore karein.',
     'home.continue.kicker': 'YAHIN SE AAGE BADHEIN', 'home.continue.title': 'Learning continue karein',
@@ -77,7 +86,7 @@ const translations = {
     'home.search.placeholder': 'Example: list ke items par loop kaise chalate hain?',
     'home.search.action': 'Lessons dhoondein', 'home.search.consent': 'Main confirm karta hoon ki yeh query is request ke liye OpenAI ko bheji ja sakti hai.',
     'home.lesson.kicker': 'AAPKA NEXT STEP', 'home.lesson.title': 'Lessons', 'home.saved': 'Saved lessons',
-    'home.saved.show': 'Saare lessons dekhein', 'home.saved.filter': 'Saved lessons',
+    'home.saved.show': 'Saare lessons dekhein', 'home.saved.filter': 'Mere saved lessons',
     'lesson.mark': 'Complete mark karein', 'lesson.save': 'Lesson save karein', 'lesson.saved': 'Saved', 'lesson.code': 'Code example',
     'lesson.copy': 'Code copy karein', 'lesson.copied': 'Copied', 'lesson.quiz.kicker': 'QUICK CHECK', 'lesson.quiz.title': 'Samajh check karein',
     'lesson.quiz.submit': 'Answer check karein', 'lesson.ai.kicker': 'CONTEXT KE SAATH SEEKHEIN', 'lesson.ai.title': 'AI tutor se poochhein',
@@ -117,6 +126,9 @@ function applyLocale(locale, persist = true) {
   });
   document.querySelectorAll('[data-i18n-placeholder]').forEach((element) => {
     element.setAttribute('placeholder', translate(element.dataset.i18nPlaceholder));
+  });
+  document.querySelectorAll('[data-i18n-aria-label]').forEach((element) => {
+    element.setAttribute('aria-label', translate(element.dataset.i18nAriaLabel));
   });
 
   const picker = document.querySelector('[data-language-picker]');
@@ -173,7 +185,7 @@ function refreshProgress() {
     const state = row.querySelector('[data-progress-state]');
     if (state) state.textContent = completed.includes(row.dataset.lessonId) ? translate('lesson.done') : translate('lesson.start');
     const bookmark = row.querySelector('[data-bookmark-state]');
-    if (bookmark) bookmark.textContent = bookmarks.includes(row.dataset.lessonId) ? 'Saved' : '';
+    if (bookmark) bookmark.textContent = bookmarks.includes(row.dataset.lessonId) ? translate('lesson.saved') : '';
     row.hidden = showSavedOnly && !bookmarks.includes(row.dataset.lessonId);
   });
 
