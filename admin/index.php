@@ -1,3 +1,16 @@
+<?php
+declare(strict_types=1);
+require_once __DIR__ . '/../config/app.php';
+require_admin();
+
+$metrics = [
+  'courses' => (int) db()->query('SELECT COUNT(*) FROM courses')->fetchColumn(),
+  'lessons' => (int) db()->query('SELECT COUNT(*) FROM lessons')->fetchColumn(),
+  'published' => (int) db()->query('SELECT COUNT(*) FROM lessons WHERE is_published = 1')->fetchColumn(),
+  'drafts' => (int) db()->query('SELECT COUNT(*) FROM lessons WHERE is_published = 0')->fetchColumn(),
+];
+$recentLessons = db()->query('SELECT lessons.id, lessons.topic, lessons.title, lessons.is_published, courses.title AS course_title FROM lessons JOIN courses ON courses.id = lessons.course_id ORDER BY lessons.updated_at DESC LIMIT 8')->fetchAll();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -24,31 +37,28 @@
       <div class="d-flex flex-column h-100 justify-content-between">
         <div class="sb-sidenav-menu py-3">
           <div class="text-uppercase text-secondary px-3 pb-2 small fw-bold" style="font-size: 11px;">Overview</div>
-          <a class="nav-link active" href="#">
+          <a class="nav-link active" href="index.php">
             <i class="bi bi-speedometer2 me-2"></i> Dashboard
           </a>
 
           <div class="text-uppercase text-secondary px-3 pt-4 pb-2 small fw-bold" style="font-size: 11px;">Management</div>
-          <a class="nav-link" href="#">
-            <i class="bi bi-folder-plus me-2"></i> Add Course
+          <a class="nav-link" href="courses.php">
+            <i class="bi bi-folder-plus me-2"></i> Courses
           </a>
-          <a class="nav-link" href="#">
-            <i class="bi bi-file-earmark-plus me-2"></i> Add Topics & Chapters
+          <a class="nav-link" href="lessons.php">
+            <i class="bi bi-file-earmark-plus me-2"></i> Lessons
           </a>
           
           <div class="text-uppercase text-secondary px-3 pt-4 pb-2 small fw-bold" style="font-size: 11px;">Administration</div>
-          <a class="nav-link" href="#">
-            <i class="bi bi-people me-2"></i> User Access
-          </a>
-          <a class="nav-link" href="#">
-            <i class="bi bi-bar-chart-line me-2"></i> System Analytics
+          <a class="nav-link" href="../index.php">
+            <i class="bi bi-box-arrow-up-right me-2"></i> View learner site
           </a>
         </div>
 
         <!-- Sidenav Footer -->
         <div class="sb-sidenav-footer small">
           <div class="text-muted">Authenticated User:</div>
-          <div class="fw-bold text-white">sysadmin@devdocs.io</div>
+          <div class="fw-bold text-white"><?= e($_SESSION['admin_email'] ?? 'Administrator') ?></div>
         </div>
       </div>
     </div>
@@ -62,7 +72,7 @@
             <h3 class="fw-bold text-dark mb-0">System Control Panel</h3>
             <p class="text-muted small mb-0">Overview of active documentation and publishing metrics.</p>
           </div>
-          <button class="btn btn-primary btn-sm"><i class="bi bi-plus-lg me-1"></i> Add Chapter</button>
+            <a class="btn btn-primary btn-sm" href="lessons.php"><i class="bi bi-plus-lg me-1"></i> Add Lesson</a>
         </div>
 
         <!-- Quick Analysis Metrics Cards -->
@@ -71,7 +81,7 @@
             <div class="card card-metric bg-white shadow-sm">
               <div class="card-body">
                 <div class="text-muted small fw-bold text-uppercase">Total Courses</div>
-                <div class="fs-3 fw-bold text-dark mt-1">18</div>
+                <div class="fs-3 fw-bold text-dark mt-1"><?= $metrics['courses'] ?></div>
               </div>
             </div>
           </div>
@@ -80,7 +90,7 @@
             <div class="card card-metric bg-white shadow-sm" style="border-left-color: #10b981;">
               <div class="card-body">
                 <div class="text-muted small fw-bold text-uppercase">Active Topics</div>
-                <div class="fs-3 fw-bold text-dark mt-1">142</div>
+                <div class="fs-3 fw-bold text-dark mt-1"><?= $metrics['lessons'] ?></div>
               </div>
             </div>
           </div>
@@ -89,7 +99,7 @@
             <div class="card card-metric bg-white shadow-sm" style="border-left-color: #f59e0b;">
               <div class="card-body">
                 <div class="text-muted small fw-bold text-uppercase">Code Snippets</div>
-                <div class="fs-3 fw-bold text-dark mt-1">389</div>
+                <div class="fs-3 fw-bold text-dark mt-1"><?= $metrics['published'] ?></div>
               </div>
             </div>
           </div>
@@ -98,7 +108,7 @@
             <div class="card card-metric bg-white shadow-sm" style="border-left-color: #ef4444;">
               <div class="card-body">
                 <div class="text-muted small fw-bold text-uppercase">Pending Reviews</div>
-                <div class="fs-3 fw-bold text-dark mt-1">5</div>
+                <div class="fs-3 fw-bold text-dark mt-1"><?= $metrics['drafts'] ?></div>
               </div>
             </div>
           </div>
@@ -123,36 +133,16 @@
                   </tr>
                 </thead>
                 <tbody class="small">
+                  <?php foreach ($recentLessons as $lesson): ?>
                   <tr>
-                    <td><span class="badge bg-slate-dark text-white">PHP</span></td>
-                    <td>Arrays</td>
-                    <td>Indexed Arrays</td>
-                    <td><span class="badge bg-success-subtle text-success border border-success-subtle">Published</span></td>
-                    <td>
-                      <button class="btn btn-sm btn-light border me-1"><i class="bi bi-pencil-fill text-secondary"></i></button>
-                      <button class="btn btn-sm btn-light border"><i class="bi bi-trash-fill text-danger"></i></button>
-                    </td>
+                    <td><?= e($lesson['course_title']) ?></td>
+                    <td><?= e($lesson['topic']) ?></td>
+                    <td><?= e($lesson['title']) ?></td>
+                    <td><span class="badge <?= $lesson['is_published'] ? 'bg-success-subtle text-success' : 'bg-warning-subtle text-warning' ?>"><?= $lesson['is_published'] ? 'Published' : 'Draft' ?></span></td>
+                    <td><a class="btn btn-sm btn-light border" href="lessons.php?edit=<?= (int) $lesson['id'] ?>" aria-label="Edit <?= e($lesson['title']) ?>"><i class="bi bi-pencil-fill text-secondary"></i></a></td>
                   </tr>
-                  <tr>
-                    <td><span class="badge bg-slate-dark text-white">PHP</span></td>
-                    <td>Arrays</td>
-                    <td>Associative Arrays</td>
-                    <td><span class="badge bg-success-subtle text-success border border-success-subtle">Published</span></td>
-                    <td>
-                      <button class="btn btn-sm btn-light border me-1"><i class="bi bi-pencil-fill text-secondary"></i></button>
-                      <button class="btn btn-sm btn-light border"><i class="bi bi-trash-fill text-danger"></i></button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td><span class="badge bg-slate-dark text-white">Python</span></td>
-                    <td>Data Structures</td>
-                    <td>Lists & Tuples</td>
-                    <td><span class="badge bg-warning-subtle text-warning border border-warning-subtle">Draft Review</span></td>
-                    <td>
-                      <button class="btn btn-sm btn-light border me-1"><i class="bi bi-pencil-fill text-secondary"></i></button>
-                      <button class="btn btn-sm btn-light border"><i class="bi bi-trash-fill text-danger"></i></button>
-                    </td>
-                  </tr>
+                  <?php endforeach; ?>
+                  <?php if ($recentLessons === []): ?><tr><td colspan="5" class="text-center text-muted py-4">No lessons yet. <a href="lessons.php">Create your first lesson</a>.</td></tr><?php endif; ?>
                 </tbody>
               </table>
             </div>
@@ -166,6 +156,6 @@
   <!-- Bootstrap 5 Bundle JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/bootstrap.bundle.min.js"></script>
   
-  <scripts src="assets1/index.js"></scripts>
+  <script src="assets1/index.js"></script>
 </body>
 </html>

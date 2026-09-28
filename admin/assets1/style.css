@@ -78,3 +78,28 @@
       border: 1px solid #e2e8f0;
       border-left: 4px solid var(--blue-accent);
     }
+
+    .admin-page-content {
+      max-width: 1480px;
+      padding-top: 5.5rem !important;
+    }
+    .admin-form-section {
+      background-color: #ffffff;
+    }
+    .quiz-editor-heading {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem 0;
+      border-top: 1px solid #dce5e1;
+    }
+    @media (max-width: 767.98px) {
+      .admin-page-content {
+        padding-inline: 1rem;
+      }
+      .quiz-editor-heading {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+    }

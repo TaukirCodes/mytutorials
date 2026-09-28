@@ -3,55 +3,22 @@
         <h6 class="text-uppercase text-muted fw-bold small">Documentation Explorer</h6>
       </div>
       <ul class="list-unstyled sidebar-menu">
-        <!-- Course 1: PHP -->
-        <li>
-          <a href="#phpSubmenu" data-bs-toggle="collapse" class="nav-link d-flex justify-content-between align-items-center">
-            <span><i class="bi bi-filetype-php me-2 text-primary"></i> PHP Reference</span>
-            <i class="bi bi-chevron-down small"></i>
+        <?php foreach ($courses as $course): ?>
+        <?php $courseLessons = array_values(array_filter($navigationLessons, static fn(array $lesson): bool => (int) $lesson['course_id'] === (int) $course['id'])); ?>
+        <li class="sidebar-course">
+          <a href="index.php?course=<?= e($course['slug']) ?>" class="nav-link d-flex justify-content-between align-items-center">
+            <span><i class="bi bi-journal-code me-2 text-primary"></i><?= e($course['title']) ?></span>
+            <span class="badge text-bg-light"><?= count($courseLessons) ?></span>
           </a>
-          <ul class="collapse show submenu-topic" id="phpSubmenu">
-            <!-- Topic 1: Introduction -->
-            <li>
-              <a href="#" class="nav-link"><i class="bi bi-dash me-1"></i> 1. Introduction</a>
-            </li>
-            <!-- Topic 2: Arrays -->
-            <li>
-              <a href="#phpArraysSubmenu" data-bs-toggle="collapse" class="nav-link d-flex justify-content-between align-items-center">
-                <span><i class="bi bi-dash me-1"></i> 2. Arrays</span>
-                <i class="bi bi-chevron-down small"></i>
-              </a>
-              <!-- Subtopics / Chapters -->
-              <ul class="collapse show submenu-subtopic" id="phpArraysSubmenu">
-                <li><a href="#" class="nav-link small active"><i class="bi bi-circle-fill me-2" style="font-size: 6px;"></i> Indexed Arrays</a></li>
-                <li><a href="#" class="nav-link small"><i class="bi bi-circle me-2" style="font-size: 6px;"></i> Associative Arrays</a></li>
-                <li><a href="#" class="nav-link small"><i class="bi bi-circle me-2" style="font-size: 6px;"></i> Multidimensional Arrays</a></li>
-              </ul>
-            </li>
+          <?php if ($courseLessons !== []): ?>
+          <ul class="list-unstyled submenu-subtopic">
+            <?php foreach ($courseLessons as $navigationLesson): ?>
+            <li><a href="lesson.php?id=<?= (int) $navigationLesson['id'] ?>" class="nav-link small"><i class="bi bi-circle me-2" style="font-size: 6px;"></i><?= e($navigationLesson['title']) ?></a></li>
+            <?php endforeach; ?>
           </ul>
+          <?php endif; ?>
         </li>
-
-        <!-- Course 2: Python -->
-        <li>
-          <a href="#pythonSubmenu" data-bs-toggle="collapse" class="nav-link d-flex justify-content-between align-items-center">
-            <span><i class="bi bi-filetype-py me-2 text-primary"></i> Python 3 Core</span>
-            <i class="bi bi-chevron-down small"></i>
-          </a>
-          <ul class="collapse submenu-topic" id="pythonSubmenu">
-            <li><a href="#" class="nav-link">1. Intro to Python</a></li>
-            <li><a href="#" class="nav-link">2. Data Structures</a></li>
-          </ul>
-        </li>
-
-        <!-- Course 3: JavaScript -->
-        <li>
-          <a href="#jsSubmenu" data-bs-toggle="collapse" class="nav-link d-flex justify-content-between align-items-center">
-            <span><i class="bi bi-filetype-js me-2 text-primary"></i> JavaScript Modern</span>
-            <i class="bi bi-chevron-down small"></i>
-          </a>
-          <ul class="collapse submenu-topic" id="jsSubmenu">
-            <li><a href="#" class="nav-link">1. JS Basics</a></li>
-            <li><a href="#" class="nav-link">2. ES6+ Features</a></li>
-          </ul>
-        </li>
+        <?php endforeach; ?>
+        <?php if ($courses === []): ?><li class="px-3 small text-muted">No published courses yet.</li><?php endif; ?>
       </ul>
     </nav>

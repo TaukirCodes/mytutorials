@@ -41,7 +41,12 @@
           <li><a class="dropdown-item" href="#"><i class="bi bi-gear me-2"></i> Settings</a></li>
           <li><a class="dropdown-item" href="#"><i class="bi bi-journal-text me-2"></i> System Logs</a></li>
           <li><hr class="dropdown-divider"></li>
-          <li><a class="dropdown-item text-danger" href="index.php"><i class="bi bi-box-arrow-right me-2"></i> Sign Out</a></li>
+          <li>
+            <form method="post" action="logout.php">
+              <input type="hidden" name="csrf_token" value="<?= e(csrf_token()) ?>">
+              <button class="dropdown-item text-danger" type="submit"><i class="bi bi-box-arrow-right me-2"></i> Sign Out</button>
+            </form>
+          </li>
         </ul>
       </li>
     </ul>
