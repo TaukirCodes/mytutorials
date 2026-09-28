@@ -22,12 +22,12 @@ try {
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && $databaseReady) {
     verify_csrf();
+    $submittedEmail = trim((string) ($_POST['email'] ?? ''));
     $lockUntil = (int) ($_SESSION['admin_login_lock_until'] ?? 0);
     if ($lockUntil > time()) {
         $error = 'Too many attempts. Try again in ' . (int) ceil(($lockUntil - time()) / 60) . ' minute(s).';
     } else {
         $email = trim((string) ($_POST['email'] ?? ''));
-        $submittedEmail = $email;
         $password = (string) ($_POST['password'] ?? '');
         $statement = $database->prepare('SELECT id, email, password_hash FROM admins WHERE email = :email LIMIT 1');
         $statement->execute(['email' => $email]);
@@ -101,7 +101,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $databaseReady) {
         <h2 id="sign-in-title">Welcome back</h2>
         <p class="admin-auth-form-description">Sign in to continue to your publishing desk.</p>
 
-        <?php if ($error !== ''): ?>
+        <?php if ($error !== '' && $databaseReady): ?>
           <div class="admin-auth-alert" role="alert" aria-live="assertive">
             <i class="bi bi-exclamation-circle-fill" aria-hidden="true"></i>
             <span><?= e($error) ?></span>
