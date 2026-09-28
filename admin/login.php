@@ -65,6 +65,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $databaseReady) {
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
   <link href="../assets/style.css" rel="stylesheet">
   <link href="assets1/login.css" rel="stylesheet">
+  <link href="../assets/theme.css" rel="stylesheet">
+  <script src="../assets/theme.js"></script>
 </head>
 <body class="auth-page admin-auth-page">
   <main class="admin-auth-layout">
@@ -92,7 +94,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $databaseReady) {
     <section class="admin-auth-form-panel" aria-labelledby="sign-in-title">
       <div class="admin-auth-form-topline">
         <span class="admin-auth-mobile-brand"><i class="bi bi-braces-asterisk me-2" aria-hidden="true"></i>SkillNovi <small>STUDIO</small></span>
-        <a href="../index.php" class="admin-auth-back"><i class="bi bi-arrow-left me-1" aria-hidden="true"></i> Learner site</a>
+        <div class="admin-auth-top-actions">
+          <button class="theme-mode-toggle" type="button" data-theme-toggle aria-label="Switch to dark theme" aria-pressed="false"><i class="bi bi-moon-stars" data-theme-icon aria-hidden="true"></i><span class="visually-hidden" data-theme-label>Switch to dark theme</span></button>
+          <a href="../index.php" class="admin-auth-back"><i class="bi bi-arrow-left me-1" aria-hidden="true"></i> Learner site</a>
+        </div>
       </div>
 
       <div class="admin-auth-form-content">
