@@ -129,7 +129,6 @@ curl_setopt_array($curl, [
     CURLOPT_POSTFIELDS => json_encode($payload, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES),
 ]);
 $rawResponse = curl_exec($curl);
-$curlError = curl_error($curl);
 $status = (int) curl_getinfo($curl, CURLINFO_HTTP_CODE);
 curl_close($curl);
 
