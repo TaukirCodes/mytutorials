@@ -1,5 +1,10 @@
 document.getElementById('adminSidebarToggle')?.addEventListener('click', () => {
-  document.getElementById('sbSidenav')?.classList.toggle('toggled');
+  const sidebar = document.getElementById('sbSidenav');
+  if (window.matchMedia('(max-width: 767.98px)').matches) {
+    sidebar?.classList.toggle('mobile-open');
+  } else {
+    sidebar?.classList.toggle('toggled');
+  }
 });
 
 document.querySelector('[data-generate-draft]')?.addEventListener('click', async (event) => {

@@ -193,13 +193,13 @@
       background: var(--admin-surface);
       box-shadow: 0 2px 8px rgba(25, 59, 53, 0.035) !important;
     }
-    .card-metric:nth-child(2) {
+    .card-metric.metric-lessons {
       border-left-color: #3f8a74 !important;
     }
-    .card-metric:nth-child(3) {
+    .card-metric.metric-snippets {
       border-left-color: #ad8a45 !important;
     }
-    .card-metric:nth-child(4) {
+    .card-metric.metric-drafts {
       border-left-color: #bf745a !important;
     }
     .card-metric .card-body {

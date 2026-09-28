@@ -84,7 +84,7 @@ $adminEmail = (string) ($_SESSION['admin_email'] ?? 'Administrator');
         <!-- Quick Analysis Metrics Cards -->
         <div class="row g-3 mb-4">
           <div class="col-xl-3 col-md-6">
-            <div class="card card-metric bg-white shadow-sm">
+            <div class="card card-metric metric-courses">
               <div class="card-body">
                 <div class="text-muted small fw-bold text-uppercase">Total Courses</div>
                 <div class="fs-3 fw-bold text-dark mt-1"><?= $metrics['courses'] ?></div>
@@ -93,7 +93,7 @@ $adminEmail = (string) ($_SESSION['admin_email'] ?? 'Administrator');
           </div>
 
           <div class="col-xl-3 col-md-6">
-            <div class="card card-metric bg-white shadow-sm" style="border-left-color: #10b981;">
+            <div class="card card-metric metric-lessons">
               <div class="card-body">
                 <div class="text-muted small fw-bold text-uppercase">Total Lessons</div>
                 <div class="fs-3 fw-bold text-dark mt-1"><?= $metrics['lessons'] ?></div>
@@ -102,7 +102,7 @@ $adminEmail = (string) ($_SESSION['admin_email'] ?? 'Administrator');
           </div>
 
           <div class="col-xl-3 col-md-6">
-            <div class="card card-metric bg-white shadow-sm" style="border-left-color: #f59e0b;">
+            <div class="card card-metric metric-snippets">
               <div class="card-body">
                 <div class="text-muted small fw-bold text-uppercase">Code Examples</div>
                 <div class="fs-3 fw-bold text-dark mt-1"><?= $metrics['snippets'] ?></div>
@@ -111,7 +111,7 @@ $adminEmail = (string) ($_SESSION['admin_email'] ?? 'Administrator');
           </div>
 
           <div class="col-xl-3 col-md-6">
-            <div class="card card-metric bg-white shadow-sm" style="border-left-color: #ef4444;">
+            <div class="card card-metric metric-drafts">
               <div class="card-body">
                 <div class="text-muted small fw-bold text-uppercase">Draft Lessons</div>
                 <div class="fs-3 fw-bold text-dark mt-1"><?= $metrics['drafts'] ?></div>
