@@ -4,7 +4,7 @@
         <button class="btn btn-outline-light me-2 border-secondary" type="button" id="sidebarToggle">
           <i class="bi bi-list"></i>
         </button>
-        <a class="navbar-brand fw-bold text-white ms-1" href="index.php"><i class="bi bi-terminal-fill me-2 text-primary"></i>DevDocs</a>
+        <a class="navbar-brand fw-bold text-white ms-1" href="index.php"><i class="bi bi-braces-asterisk me-2 text-primary"></i>LearnLooma</a>
         
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#topNavbar">
           <span class="navbar-toggler-icon"></span>

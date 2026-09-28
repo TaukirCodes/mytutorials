@@ -1,4 +1,4 @@
-# DevDocs
+# LearnLooma
 
 PHP 8 and Bootstrap 5 tutorial portal with a learner library, admin publishing tools, lesson quizzes, local progress, and optional OpenAI assistance.
 

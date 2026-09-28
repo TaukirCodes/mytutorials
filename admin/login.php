@@ -57,14 +57,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $databaseReady) {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Admin sign in | DevDocs</title>
+  <title>Admin sign in | LearnLooma</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="../assets/style.css" rel="stylesheet">
 </head>
 <body class="auth-page">
   <main class="auth-shell">
     <section class="auth-panel">
-      <a class="brand-mark" href="../index.php">DevDocs <span>ADMIN</span></a>
+      <a class="brand-mark" href="../index.php">LearnLooma <span>ADMIN</span></a>
       <h1>Sign in</h1>
       <p class="text-muted">Manage courses, lessons, and publishing.</p>
       <?php if ($error !== ''): ?><div class="alert alert-warning" role="alert"><?= e($error) ?></div><?php endif; ?>
