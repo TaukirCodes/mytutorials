@@ -141,7 +141,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $databaseReady) {
               <i class="bi bi-arrow-right" aria-hidden="true"></i>
               <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
             </button>
-            <p class="admin-auth-secure-note"><i class="bi bi-shield-lock me-1" aria-hidden="true"></i>Secure sign-in · Your session stays private</p>
+            <p class="admin-auth-secure-note"><i class="bi bi-shield-lock me-1" aria-hidden="true"></i>Secure sign-in <span aria-hidden="true">&middot;</span> Your session stays private</p>
           </form>
         <?php else: ?>
           <div class="admin-auth-setup-note admin-auth-setup-note-error" role="status">
@@ -151,7 +151,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $databaseReady) {
         <?php endif; ?>
       </div>
 
-      <footer class="admin-auth-form-footer"><span>© <?= date('Y') ?> SkillNovi Studio</span><span>Learn · Create · Share</span></footer>
+      <footer class="admin-auth-form-footer"><span>&copy; <?= date('Y') ?> SkillNovi Studio</span><span>Learn &middot; Create &middot; Share</span></footer>
     </section>
   </main>
   <script src="assets1/login.js" defer></script>
