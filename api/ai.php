@@ -140,7 +140,7 @@ $response = json_decode($rawResponse, true);
 if ($status < 200 || $status >= 300 || !is_array($response)) {
     ai_response(['error' => $status === 429
         ? 'Groq rate limit reached. Wait a little and try again.'
-        : 'Groq request failed. Check the API key, model, and account limits.'], 502);
+        : 'Groq request failed. Check the API key, model, and account limits.'], $status === 429 ? 429 : 502);
 }
 
 $answer = response_text($response);
