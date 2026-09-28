@@ -25,6 +25,9 @@ try {
     $databaseError = 'The lesson library is not available. Start MySQL and check the database setup.';
 }
 
+$currentLessonId = $lesson ? (int) $lesson['id'] : 0;
+$currentCourseId = $lesson ? (int) $lesson['course_id'] : 0;
+
 if ($lesson === null && $databaseError === '') {
     http_response_code(404);
 }

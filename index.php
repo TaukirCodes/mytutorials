@@ -32,6 +32,15 @@ try {
 } catch (Throwable $exception) {
   $databaseError = 'The learning library is not ready yet. Start MySQL, import database/schema.sql, and check your local .env settings.';
 }
+
+$currentCourseId = 0;
+foreach ($courses as $course) {
+  if ($course['slug'] === $courseSlug) {
+    $currentCourseId = (int) $course['id'];
+    break;
+  }
+}
+$currentLessonId = 0;
 ?>
 <!DOCTYPE html>
 <html lang="en">
