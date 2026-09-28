@@ -14,7 +14,7 @@ const translations = {
     'sidebar.kicker': 'YOUR CURRICULUM', 'sidebar.heading': 'Learning paths',
     'sidebar.overview': 'Path overview', 'sidebar.empty': 'No published courses yet.',
     'sidebar.no-lessons': 'Lessons coming soon', 'sidebar.promise': 'Small lessons. Real progress.',
-    'sidebar.close': 'Close learning navigation', 'sidebar.now': 'Now',
+    'sidebar.close': 'Close learning navigation', 'sidebar.open': 'Open learning navigation', 'sidebar.now': 'Now',
     'footer.note': 'A practical place to grow your developer skills.', 'course.open': 'Open path',
     'home.kicker': 'LESSONS FOR YOUR NEXT IDEA', 'home.title.prefix': 'Turn curiosity', 'home.title.accent': 'into code.',
     'home.description': 'Learn practical developer skills through focused paths and working code.',
@@ -48,7 +48,7 @@ const translations = {
     'sidebar.kicker': 'आपका पाठ्यक्रम', 'sidebar.heading': 'लर्निंग पाथ',
     'sidebar.overview': 'पाथ का परिचय', 'sidebar.empty': 'अभी कोई published course नहीं है।',
     'sidebar.no-lessons': 'Lessons जल्द आएँगे', 'sidebar.promise': 'छोटे lessons। असली progress।',
-    'sidebar.close': 'लर्निंग navigation बंद करें', 'sidebar.now': 'अभी यहाँ',
+    'sidebar.close': 'लर्निंग navigation बंद करें', 'sidebar.open': 'लर्निंग navigation खोलें', 'sidebar.now': 'अभी यहाँ',
     'footer.note': 'Developer skills को practical तरीके से बढ़ाएँ।', 'course.open': 'पाथ खोलें',
     'home.kicker': 'आपके अगले आइडिया के लिए lessons', 'home.title.prefix': 'जिज्ञासा से', 'home.title.accent': 'कोड तक।',
     'home.description': 'Focused paths और working code के साथ practical developer skills सीखें।',
@@ -82,7 +82,7 @@ const translations = {
     'sidebar.kicker': 'AAPKA CURRICULUM', 'sidebar.heading': 'Learning paths',
     'sidebar.overview': 'Path overview', 'sidebar.empty': 'Abhi koi published course nahi hai.',
     'sidebar.no-lessons': 'Lessons jald aa rahe hain', 'sidebar.promise': 'Chhote lessons. Real progress.',
-    'sidebar.close': 'Learning navigation band karein', 'sidebar.now': 'Abhi yahan',
+    'sidebar.close': 'Learning navigation band karein', 'sidebar.open': 'Learning navigation kholein', 'sidebar.now': 'Abhi yahan',
     'footer.note': 'Developer skills ko practical tareeke se grow karein.', 'course.open': 'Path kholein',
     'home.kicker': 'AAPKE NEXT IDEA KE LIYE LESSONS', 'home.title.prefix': 'Curiosity se', 'home.title.accent': 'code tak.',
     'home.description': 'Focused paths aur working code ke saath practical developer skills seekhein.',
@@ -341,7 +341,11 @@ function setSidebarOpen(open) {
     sidebar?.classList.toggle('collapsed', !open);
   }
   const toggle = document.getElementById('sidebarToggle');
-  if (toggle) toggle.setAttribute('aria-expanded', String(open));
+  if (toggle) {
+    toggle.setAttribute('aria-expanded', String(open));
+    toggle.dataset.i18nAriaLabel = open ? 'sidebar.close' : 'sidebar.open';
+    toggle.setAttribute('aria-label', translate(toggle.dataset.i18nAriaLabel));
+  }
   if (sidebar) sidebar.setAttribute('aria-hidden', String(!open && window.matchMedia('(max-width: 767.98px)').matches));
 }
 

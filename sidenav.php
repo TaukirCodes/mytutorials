@@ -3,7 +3,7 @@
     <p class="eyebrow mb-1" data-i18n="sidebar.kicker">YOUR CURRICULUM</p>
     <div class="sidebar-heading-row">
       <h2 data-i18n="sidebar.heading">Learning paths</h2>
-      <button class="sidebar-close" type="button" data-sidebar-close aria-label="Close learning navigation"><i class="bi bi-x-lg"></i></button>
+      <button class="sidebar-close" type="button" data-sidebar-close aria-label="Close learning navigation" data-i18n-aria-label="sidebar.close"><i class="bi bi-x-lg" aria-hidden="true"></i></button>
     </div>
     <p class="sidebar-summary"><strong><?= count($courses) ?></strong> <span data-i18n="stats.paths">paths</span><span class="sidebar-summary-separator">/</span><strong><?= count($navigationLessons) ?></strong> <span data-i18n="stats.lessons">lessons</span></p>
   </div>
@@ -15,7 +15,7 @@
       $pathId = 'learningPath-' . (int) $course['id'];
     ?>
     <section class="sidebar-path <?= $isCurrentPath ? 'is-current' : '' ?>" data-path-card>
-      <button class="sidebar-path-toggle" type="button" data-path-toggle aria-expanded="<?= $isCurrentPath ? 'true' : 'false' ?>" aria-controls="<?= e($pathId) ?>">
+          <button class="sidebar-path-toggle" type="button" data-path-toggle aria-expanded="<?= $isCurrentPath ? 'true' : 'false' ?>" aria-controls="<?= e($pathId) ?>">
         <span class="sidebar-path-icon"><i class="bi bi-journal-code" aria-hidden="true"></i></span>
         <span class="sidebar-path-copy"><strong><?= e($course['title']) ?></strong><small><?= e($course['level']) ?> <span aria-hidden="true">·</span> <?= count($courseLessons) ?> <span data-i18n="stats.lessons">lessons</span></small></span>
         <i class="bi bi-chevron-down sidebar-path-chevron" aria-hidden="true"></i>
@@ -30,7 +30,7 @@
             <a href="lesson.php?id=<?= (int) $navigationLesson['id'] ?>" class="sidebar-lesson <?= $isCurrentLesson ? 'is-active' : '' ?>" data-sidebar-lesson data-lesson-id="<?= (int) $navigationLesson['id'] ?>" <?= $isCurrentLesson ? 'aria-current="page"' : '' ?>>
               <span class="sidebar-lesson-marker"><i class="bi <?= $isCurrentLesson ? 'bi-play-fill' : 'bi-circle' ?>" aria-hidden="true"></i></span>
               <span class="sidebar-lesson-title"><?= e($navigationLesson['title']) ?></span>
-              <span class="sidebar-lesson-state" data-sidebar-lesson-state><?= $isCurrentLesson ? 'Now' : '' ?></span>
+              <span class="sidebar-lesson-state" data-sidebar-lesson-state <?= $isCurrentLesson ? 'data-state-key="sidebar.now"' : '' ?>><?= $isCurrentLesson ? 'Now' : '' ?></span>
             </a>
           </li>
           <?php endforeach; ?>
@@ -45,4 +45,4 @@
   </div>
   <div class="sidebar-footer"><i class="bi bi-lightning-charge" aria-hidden="true"></i><span data-i18n="sidebar.promise">Small lessons. Real progress.</span></div>
 </nav>
-<button class="sidebar-backdrop" type="button" data-sidebar-close aria-label="Close learning navigation"></button>
+<button class="sidebar-backdrop" type="button" data-sidebar-close aria-label="Close learning navigation" data-i18n-aria-label="sidebar.close"></button>

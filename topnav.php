@@ -1,8 +1,8 @@
 <header>
     <nav class="navbar navbar-expand-lg navbar-dark navbar-slate fixed-top shadow-sm">
       <div class="container-fluid">
-        <button class="btn btn-outline-light me-2 border-secondary" type="button" id="sidebarToggle">
-          <i class="bi bi-list"></i>
+        <button class="btn btn-outline-light me-2 border-secondary sidebar-toggle" type="button" id="sidebarToggle" aria-controls="sidebar" aria-expanded="false" aria-label="Open learning navigation" data-i18n-aria-label="sidebar.open">
+          <i class="bi bi-list" aria-hidden="true"></i>
         </button>
         <a class="navbar-brand fw-bold text-white ms-1" href="index.php"><i class="bi bi-braces-asterisk me-2 text-primary"></i>SkillNovi</a>
         
