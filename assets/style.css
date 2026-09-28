@@ -763,6 +763,9 @@
         margin-left: -286px;
         box-shadow: none;
       }
+      body.sidebar-open .learning-sidebar {
+        margin-left: 0;
+      }
       .lesson-layout .learning-sidebar {
         position: fixed;
       }
