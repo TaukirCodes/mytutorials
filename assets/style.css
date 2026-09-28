@@ -391,7 +391,6 @@
       font-size: 0.7rem;
       font-weight: 700;
       letter-spacing: 0.08em;
-      letter-spacing: 0.08em;
     }
     .learning-stats {
       display: flex;
@@ -764,18 +763,22 @@
         bottom: 0;
         z-index: 1041;
         height: calc(100dvh - 56px);
-        margin-left: -286px;
+        margin-left: 0;
+        transform: translateX(-100%);
+        transition: transform 220ms ease, box-shadow 220ms ease;
         box-shadow: none;
       }
       body.sidebar-open .learning-sidebar {
-        margin-left: 0;
+        transform: translateX(0);
       }
       .lesson-layout .learning-sidebar {
         position: fixed;
       }
       body.sidebar-open .learning-sidebar {
-        margin-left: 0;
         box-shadow: 16px 0 38px rgba(23, 49, 44, 0.16);
+      }
+      #sidebar.is-open {
+        transform: translateX(0);
       }
       .sidebar-close {
         display: grid;
