@@ -779,21 +779,37 @@
     }
     .course-action-button {
       display: inline-flex;
-      min-height: 32px !important;
+      min-height: 36px !important;
       align-items: center;
       gap: 0.32rem;
-      padding: 0.35rem 0.55rem;
+      padding: 0.4rem 0.65rem;
       border: 1px solid var(--admin-border);
       border-radius: 8px !important;
       background: var(--admin-surface);
       color: var(--admin-ink);
-      font-size: 0.68rem;
+      font-size: 0.72rem;
       font-weight: 700;
     }
     .course-action-button:hover {
       border-color: var(--admin-accent);
       background: var(--admin-accent-soft);
       color: var(--admin-accent);
+    }
+    .course-edit-button {
+      border-color: var(--admin-accent) !important;
+      background: var(--admin-accent) !important;
+      color: #fff !important;
+      box-shadow: 0 3px 9px rgba(8, 127, 120, 0.2);
+    }
+    .course-edit-button:hover {
+      border-color: var(--admin-accent-hover) !important;
+      background: var(--admin-accent-hover) !important;
+      color: #fff !important;
+      box-shadow: 0 5px 13px rgba(8, 127, 120, 0.27);
+    }
+    .course-edit-button:focus-visible {
+      outline: 3px solid color-mix(in srgb, var(--admin-accent) 42%, transparent);
+      outline-offset: 2px;
     }
     .course-delete-button {
       color: #a3413d;
@@ -825,6 +841,18 @@
       border-color: #635336;
       background: #332d1d;
       color: #e5d5a8;
+    }
+    html[data-theme="dark"] .course-edit-button {
+      border-color: #9ae0bc !important;
+      background: #a9e5c4 !important;
+      color: #17372c !important;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+    }
+    html[data-theme="dark"] .course-edit-button:hover {
+      border-color: #c7f2d9 !important;
+      background: #c7f2d9 !important;
+      color: #102a20 !important;
+      box-shadow: 0 5px 14px rgba(0, 0, 0, 0.3);
     }
     html[data-theme="dark"] .course-delete-button:hover {
       border-color: #854744;
