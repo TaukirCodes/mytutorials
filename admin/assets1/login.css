@@ -608,3 +608,19 @@
     transition-duration: 0.01ms !important;
   }
 }
+
+.admin-auth-top-actions .theme-mode-toggle {
+  width: 34px;
+  height: 34px;
+  flex-basis: 34px;
+  border-color: #dce7e1;
+  border-radius: 50%;
+  background: #f5f8f6;
+  color: #49675c;
+  font-size: 0.9rem;
+}
+
+.admin-auth-top-actions .theme-mode-toggle:hover {
+  background: #e8f3ed;
+  color: #087f78;
+}
