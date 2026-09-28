@@ -56,6 +56,8 @@ $currentLessonId = 0;
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
   
   <link href="assets/style.css" rel="stylesheet">
+  <link href="assets/theme.css" rel="stylesheet">
+  <script src="assets/theme.js"></script>
 </head>
 <body>
 
