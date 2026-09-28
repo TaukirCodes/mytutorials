@@ -11,7 +11,10 @@ const translations = {
     'nav.explorer': 'Explore', 'nav.courses': 'Learning paths', 'nav.admin': 'Admin portal',
     'nav.language': 'Language', 'nav.search.placeholder': 'Search lessons and topics...',
     'nav.search.label': 'Search lessons and topics', 'nav.search.action': 'Search',
-    'sidebar.heading': 'Learning paths', 'sidebar.empty': 'No published courses yet.',
+    'sidebar.kicker': 'YOUR CURRICULUM', 'sidebar.heading': 'Learning paths',
+    'sidebar.overview': 'Path overview', 'sidebar.empty': 'No published courses yet.',
+    'sidebar.no-lessons': 'Lessons coming soon', 'sidebar.promise': 'Small lessons. Real progress.',
+    'sidebar.close': 'Close learning navigation', 'sidebar.now': 'Now',
     'footer.note': 'A practical place to grow your developer skills.', 'course.open': 'Open path',
     'home.kicker': 'LESSONS FOR YOUR NEXT IDEA', 'home.title.prefix': 'Turn curiosity', 'home.title.accent': 'into code.',
     'home.description': 'Learn practical developer skills through focused paths and working code.',
@@ -42,7 +45,10 @@ const translations = {
     'nav.explorer': 'सीखें', 'nav.courses': 'लर्निंग पाथ', 'nav.admin': 'एडमिन पोर्टल',
     'nav.language': 'भाषा', 'nav.search.placeholder': 'Lessons और topics खोजें...',
     'nav.search.label': 'Lessons और topics खोजें', 'nav.search.action': 'खोजें',
-    'sidebar.heading': 'लर्निंग पाथ', 'sidebar.empty': 'अभी कोई published course नहीं है।',
+    'sidebar.kicker': 'आपका पाठ्यक्रम', 'sidebar.heading': 'लर्निंग पाथ',
+    'sidebar.overview': 'पाथ का परिचय', 'sidebar.empty': 'अभी कोई published course नहीं है।',
+    'sidebar.no-lessons': 'Lessons जल्द आएँगे', 'sidebar.promise': 'छोटे lessons। असली progress।',
+    'sidebar.close': 'लर्निंग navigation बंद करें', 'sidebar.now': 'अभी यहाँ',
     'footer.note': 'Developer skills को practical तरीके से बढ़ाएँ।', 'course.open': 'पाथ खोलें',
     'home.kicker': 'आपके अगले आइडिया के लिए lessons', 'home.title.prefix': 'जिज्ञासा से', 'home.title.accent': 'कोड तक।',
     'home.description': 'Focused paths और working code के साथ practical developer skills सीखें।',
@@ -73,7 +79,10 @@ const translations = {
     'nav.explorer': 'Explore karo', 'nav.courses': 'Learning paths', 'nav.admin': 'Admin portal',
     'nav.language': 'Bhasha', 'nav.search.placeholder': 'Lessons aur topics search karein...',
     'nav.search.label': 'Lessons aur topics search karein', 'nav.search.action': 'Search',
-    'sidebar.heading': 'Learning paths', 'sidebar.empty': 'Abhi koi published course nahi hai.',
+    'sidebar.kicker': 'AAPKA CURRICULUM', 'sidebar.heading': 'Learning paths',
+    'sidebar.overview': 'Path overview', 'sidebar.empty': 'Abhi koi published course nahi hai.',
+    'sidebar.no-lessons': 'Lessons jald aa rahe hain', 'sidebar.promise': 'Chhote lessons. Real progress.',
+    'sidebar.close': 'Learning navigation band karein', 'sidebar.now': 'Abhi yahan',
     'footer.note': 'Developer skills ko practical tareeke se grow karein.', 'course.open': 'Path kholein',
     'home.kicker': 'AAPKE NEXT IDEA KE LIYE LESSONS', 'home.title.prefix': 'Curiosity se', 'home.title.accent': 'code tak.',
     'home.description': 'Focused paths aur working code ke saath practical developer skills seekhein.',
@@ -129,6 +138,9 @@ function applyLocale(locale, persist = true) {
   });
   document.querySelectorAll('[data-i18n-aria-label]').forEach((element) => {
     element.setAttribute('aria-label', translate(element.dataset.i18nAriaLabel));
+  });
+  document.querySelectorAll('[data-sidebar-lesson-state]').forEach((element) => {
+    if (element.dataset.stateKey) element.textContent = translate(element.dataset.stateKey);
   });
 
   const picker = document.querySelector('[data-language-picker]');
@@ -187,6 +199,18 @@ function refreshProgress() {
     const bookmark = row.querySelector('[data-bookmark-state]');
     if (bookmark) bookmark.textContent = bookmarks.includes(row.dataset.lessonId) ? translate('lesson.saved') : '';
     row.hidden = showSavedOnly && !bookmarks.includes(row.dataset.lessonId);
+  });
+
+  document.querySelectorAll('[data-sidebar-lesson]').forEach((link) => {
+    const isCurrent = link.getAttribute('aria-current') === 'page';
+    const isComplete = completed.includes(link.dataset.lessonId);
+    const marker = link.querySelector('.sidebar-lesson-marker i');
+    const state = link.querySelector('[data-sidebar-lesson-state]');
+    if (marker) marker.className = `bi ${isCurrent ? 'bi-play-fill' : isComplete ? 'bi-check-circle-fill' : 'bi-circle'}`;
+    if (state) {
+      state.dataset.stateKey = isCurrent ? 'sidebar.now' : isComplete ? 'lesson.done' : '';
+      state.textContent = state.dataset.stateKey ? translate(state.dataset.stateKey) : '';
+    }
   });
 
   const summary = document.querySelector('[data-progress-summary]');
@@ -309,13 +333,47 @@ async function submitAiRequest(form) {
   }
 }
 
-document.getElementById('sidebarToggle')?.addEventListener('click', () => {
+function setSidebarOpen(open) {
   const sidebar = document.getElementById('sidebar');
   if (window.matchMedia('(max-width: 767.98px)').matches) {
-    document.body.classList.toggle('sidebar-open');
+    document.body.classList.toggle('sidebar-open', open);
   } else {
-    sidebar?.classList.toggle('collapsed');
+    sidebar?.classList.toggle('collapsed', !open);
   }
+  const toggle = document.getElementById('sidebarToggle');
+  if (toggle) toggle.setAttribute('aria-expanded', String(open));
+  if (sidebar) sidebar.setAttribute('aria-hidden', String(!open && window.matchMedia('(max-width: 767.98px)').matches));
+}
+
+document.getElementById('sidebarToggle')?.addEventListener('click', () => {
+  const sidebar = document.getElementById('sidebar');
+  const isOpen = window.matchMedia('(max-width: 767.98px)').matches
+    ? document.body.classList.contains('sidebar-open')
+    : !sidebar?.classList.contains('collapsed');
+  setSidebarOpen(!isOpen);
+});
+
+document.querySelectorAll('[data-sidebar-close]').forEach((button) => {
+  button.addEventListener('click', () => setSidebarOpen(false));
+});
+
+document.querySelectorAll('[data-path-toggle]').forEach((button) => {
+  button.addEventListener('click', () => {
+    const card = button.closest('[data-path-card]');
+    const wasOpen = button.getAttribute('aria-expanded') === 'true';
+    document.querySelectorAll('[data-path-card]').forEach((otherCard) => {
+      const otherButton = otherCard.querySelector('[data-path-toggle]');
+      const content = otherCard.querySelector('.sidebar-path-content');
+      const isOpen = otherCard === card && !wasOpen;
+      otherCard.classList.toggle('is-open', isOpen);
+      otherButton?.setAttribute('aria-expanded', String(isOpen));
+      if (content) content.hidden = !isOpen;
+    });
+  });
+});
+
+document.addEventListener('keydown', (event) => {
+  if (event.key === 'Escape' && document.body.classList.contains('sidebar-open')) setSidebarOpen(false);
 });
 
 document.querySelectorAll('[data-copy-code]').forEach((button) => {
