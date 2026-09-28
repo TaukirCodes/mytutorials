@@ -25,6 +25,8 @@ $recentLessons = db()->query('SELECT lessons.id, lessons.topic, lessons.title, l
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
   
   <link href="assets1/style.css" rel="stylesheet">
+  <link href="../assets/theme.css" rel="stylesheet">
+  <script src="../assets/theme.js"></script>
 </head>
 <body>
 
