@@ -94,6 +94,73 @@
       background: #b9ddcb;
       color: var(--admin-ink);
     }
+    .admin-sidebar {
+      position: sticky;
+      top: 64px;
+      display: flex;
+      flex: 0 0 var(--sb-sidenav-width);
+      width: var(--sb-sidenav-width);
+      height: calc(100vh - 64px);
+      flex-direction: column;
+      background: var(--admin-ink);
+      border-right: 1px solid #31584e;
+      transition: margin-left 180ms ease, box-shadow 180ms ease;
+    }
+    .admin-sidebar.toggled {
+      margin-left: calc(-1 * var(--sb-sidenav-width));
+    }
+    .admin-sidebar-label {
+      padding: 1.1rem 1rem 0.55rem;
+      color: #8da99e;
+      font-size: 0.64rem;
+      font-weight: 750;
+      letter-spacing: 0.1em;
+    }
+    .admin-sidebar-section-label {
+      padding-top: 1.45rem;
+    }
+    .admin-sidebar-nav {
+      flex: 1;
+    }
+    .admin-side-link {
+      display: flex;
+      min-height: 42px;
+      align-items: center;
+      gap: 0.7rem;
+      margin: 2px 9px;
+      padding: 0.65rem 0.8rem;
+      border-radius: 5px;
+      color: #bed0c7;
+      font-size: 0.84rem;
+      font-weight: 550;
+      text-decoration: none;
+      transition: background 140ms ease, color 140ms ease, transform 140ms ease;
+    }
+    .admin-side-link i {
+      width: 18px;
+      color: #8cb9a5;
+      text-align: center;
+    }
+    .admin-side-link:hover {
+      transform: translateX(2px);
+      background: rgba(255, 255, 255, 0.07);
+      color: #fff;
+    }
+    .admin-side-link.active {
+      background: #2b574a;
+      box-shadow: inset 3px 0 #82c7aa;
+      color: #fff;
+    }
+    .admin-side-link.active i {
+      color: #a6dfc2;
+    }
+    .admin-sidebar-bottom {
+      padding: 0.65rem 0 0.8rem;
+      border-top: 1px solid #31584e;
+    }
+    .admin-sidebar-backdrop {
+      display: none;
+    }
     .sb-layout {
       display: flex;
       min-height: calc(100vh - 64px);
@@ -302,7 +369,7 @@
     }
     .admin-page-content {
       max-width: 1480px;
-      padding-top: 5.5rem !important;
+      padding-top: 1.5rem !important;
     }
     .admin-form-section {
       background-color: #ffffff;
@@ -326,16 +393,34 @@
       .admin-account-email {
         max-width: 110px;
       }
-      #sbSidenav {
+      .admin-sidebar {
         position: fixed;
         top: 64px;
         bottom: 0;
         z-index: 1030;
         margin-left: calc(-1 * var(--sb-sidenav-width));
       }
-      #sbSidenav.mobile-open {
+      .admin-sidebar.mobile-open {
         margin-left: 0;
         box-shadow: 14px 0 30px rgba(15, 42, 35, 0.16);
+      }
+      .admin-sidebar-backdrop {
+        position: fixed;
+        inset: 64px 0 0;
+        z-index: 1029;
+        display: block;
+        border: 0;
+        background: rgba(17, 35, 31, 0.38);
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 180ms ease;
+      }
+      body.admin-sidebar-open .admin-sidebar-backdrop {
+        opacity: 1;
+        pointer-events: auto;
+      }
+      body.admin-sidebar-open {
+        overflow: hidden;
       }
       .admin-page-heading,
       .publish-focus {
@@ -354,5 +439,11 @@
       .quiz-editor-heading {
         align-items: flex-start;
         flex-direction: column;
+      }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
       }
     }

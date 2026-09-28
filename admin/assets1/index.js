@@ -12,8 +12,9 @@ document.getElementById('adminSidebarToggle')?.addEventListener('click', () => {
   } else {
     sidebar?.classList.toggle('toggled', !shouldOpen);
   }
-  document.getElementById('adminSidebarToggle')?.setAttribute('aria-expanded', String(shouldOpen));
-  sidebar?.setAttribute('aria-hidden', String(!shouldOpen));
+  const toggle = document.getElementById('adminSidebarToggle');
+  toggle?.setAttribute('aria-expanded', String(shouldOpen));
+  sidebar?.setAttribute('aria-hidden', String(!shouldOpen && isMobile));
 });
 
 document.querySelectorAll('[data-admin-sidebar-close]').forEach((button) => {
@@ -21,7 +22,7 @@ document.querySelectorAll('[data-admin-sidebar-close]').forEach((button) => {
     document.body.classList.remove('admin-sidebar-open');
     document.getElementById('sbSidenav')?.classList.remove('mobile-open');
     document.getElementById('adminSidebarToggle')?.setAttribute('aria-expanded', 'false');
-    document.getElementById('sbSidenav')?.setAttribute('aria-hidden', 'true');
+    document.getElementById('sbSidenav')?.setAttribute('aria-hidden', String(window.matchMedia('(max-width: 767.98px)').matches));
   });
 });
 

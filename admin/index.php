@@ -12,7 +12,6 @@ $metrics = [
   'snippets' => (int) db()->query("SELECT COUNT(*) FROM lessons WHERE TRIM(code_sample) <> ''")->fetchColumn(),
 ];
 $recentLessons = db()->query('SELECT lessons.id, lessons.topic, lessons.title, lessons.is_published, lessons.updated_at, courses.title AS course_title FROM lessons JOIN courses ON courses.id = lessons.course_id ORDER BY lessons.is_published ASC, lessons.updated_at DESC LIMIT 8')->fetchAll();
-$adminEmail = (string) ($_SESSION['admin_email'] ?? 'Administrator');
 ?>
 <!DOCTYPE html>
 <html lang="en">
