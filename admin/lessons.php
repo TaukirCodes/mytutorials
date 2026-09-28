@@ -128,6 +128,8 @@ $lessons = $database->query($lessonQuery)->fetchAll();
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
   <link href="assets1/style.css" rel="stylesheet">
+  <link href="../assets/theme.css" rel="stylesheet">
+  <script src="../assets/theme.js"></script>
 </head>
 <body>
   <?php include __DIR__ . '/topnav.php'; ?>
