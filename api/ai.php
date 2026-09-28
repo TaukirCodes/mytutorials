@@ -13,19 +13,8 @@ function ai_response(array $payload, int $status = 200): never
 
 function response_text(array $response): string
 {
-    if (isset($response['output_text']) && is_string($response['output_text'])) {
-        return trim($response['output_text']);
-    }
-
-    $text = [];
-    foreach ($response['output'] ?? [] as $item) {
-        foreach ($item['content'] ?? [] as $content) {
-            if (($content['type'] ?? '') === 'output_text' && isset($content['text'])) {
-                $text[] = $content['text'];
-            }
-        }
-    }
-    return trim(implode("\n", $text));
+    $text = $response['choices'][0]['message']['content'] ?? '';
+    return is_string($text) ? trim($text) : '';
 }
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
@@ -54,9 +43,9 @@ if ($isAdminDraft && !is_admin()) {
     ai_response(['error' => 'Sign in as an administrator to generate content drafts.'], 401);
 }
 
-$apiKey = env_value('OPENAI_API_KEY');
+$apiKey = env_value('GROQ_API_KEY');
 if ($apiKey === '') {
-    ai_response(['error' => 'OpenAI is not configured yet. Add OPENAI_API_KEY to your local .env file.'], 503);
+    ai_response(['error' => 'Groq is not configured yet. Add GROQ_API_KEY to your local .env file.'], 503);
 }
 if (!function_exists('curl_init')) {
     ai_response(['error' => 'The PHP cURL extension is required for AI requests.'], 503);
@@ -114,16 +103,20 @@ try {
 }
 
 $payload = [
-    'model' => env_value('OPENAI_MODEL', 'gpt-4.1-mini'),
-    'input' => [
-        ['role' => 'system', 'content' => [['type' => 'input_text', 'text' => $systemPrompt]]],
-        ['role' => 'user', 'content' => [['type' => 'input_text', 'text' => $userPrompt]]],
+    'model' => env_value('GROQ_MODEL', 'qwen/qwen3.8-27b'),
+    'messages' => [
+        ['role' => 'system', 'content' => $systemPrompt],
+        ['role' => 'user', 'content' => $userPrompt],
     ],
-    'max_output_tokens' => $isAdminDraft ? 1800 : 900,
-    'store' => false,
+    'max_completion_tokens' => $isAdminDraft ? 1800 : 900,
+    'reasoning_effort' => 'none',
+    'reasoning_format' => 'hidden',
 ];
+if ($isAdminDraft || $mode === 'search') {
+    $payload['response_format'] = ['type' => 'json_object'];
+}
 
-$curl = curl_init('https://api.openai.com/v1/responses');
+$curl = curl_init('https://api.groq.com/openai/v1/chat/completions');
 curl_setopt_array($curl, [
     CURLOPT_POST => true,
     CURLOPT_RETURNTRANSFER => true,
@@ -141,16 +134,18 @@ $status = (int) curl_getinfo($curl, CURLINFO_HTTP_CODE);
 curl_close($curl);
 
 if (!is_string($rawResponse)) {
-    ai_response(['error' => 'Could not reach OpenAI: ' . $curlError], 502);
+    ai_response(['error' => 'Could not reach Groq. Check your connection and try again.'], 502);
 }
 $response = json_decode($rawResponse, true);
 if ($status < 200 || $status >= 300 || !is_array($response)) {
-    ai_response(['error' => 'OpenAI request failed. Check the API key, model, and account limits.'], 502);
+    ai_response(['error' => $status === 429
+        ? 'Groq rate limit reached. Wait a little and try again.'
+        : 'Groq request failed. Check the API key, model, and account limits.'], 502);
 }
 
 $answer = response_text($response);
 if ($answer === '') {
-    ai_response(['error' => 'OpenAI returned an empty answer. Try again.'], 502);
+    ai_response(['error' => 'Groq returned an empty answer. Try again.'], 502);
 }
 
 if ($isAdminDraft) {
