@@ -2,6 +2,7 @@
 declare(strict_types=1);
 require_once __DIR__ . '/../config/app.php';
 require_admin();
+$activeAdminPage = 'dashboard';
 
 $metrics = [
   'courses' => (int) db()->query('SELECT COUNT(*) FROM courses')->fetchColumn(),
@@ -34,36 +35,7 @@ $adminEmail = (string) ($_SESSION['admin_email'] ?? 'Administrator');
   <!-- SB-Admin Layout -->
   <div class="sb-layout">
     
-    <!-- Fixed Side Navigation -->
-    <div id="sbSidenav">
-      <div class="d-flex flex-column h-100 justify-content-between">
-        <div class="sb-sidenav-menu py-3">
-          <div class="text-uppercase px-3 pb-2 small fw-bold" style="font-size: 11px;">Workspace</div>
-          <a class="nav-link active" href="index.php">
-            <i class="bi bi-speedometer2 me-2"></i> Dashboard
-          </a>
-
-          <div class="text-uppercase px-3 pt-4 pb-2 small fw-bold" style="font-size: 11px;">Content</div>
-          <a class="nav-link" href="courses.php">
-            <i class="bi bi-folder-plus me-2"></i> Courses
-          </a>
-          <a class="nav-link" href="lessons.php">
-            <i class="bi bi-file-earmark-plus me-2"></i> Lessons
-          </a>
-          
-          <div class="text-uppercase px-3 pt-4 pb-2 small fw-bold" style="font-size: 11px;">Preview</div>
-          <a class="nav-link" href="../index.php">
-            <i class="bi bi-box-arrow-up-right me-2"></i> View learner site
-          </a>
-        </div>
-
-        <!-- Sidenav Footer -->
-        <div class="sb-sidenav-footer small">
-          <div class="text-muted">SIGNED IN AS</div>
-          <div class="fw-bold text-white text-truncate"><?= e($adminEmail) ?></div>
-        </div>
-      </div>
-    </div>
+    <?php include __DIR__ . '/sidenav.php'; ?>
 
     <!-- Dashboard Content Area -->
     <div class="sb-content">
