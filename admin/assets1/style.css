@@ -273,9 +273,9 @@
     .content-activity {
       animation: admin-workspace-enter 300ms ease-out both;
     }
-    .card-metric:nth-child(2) { animation-delay: 45ms; }
-    .card-metric:nth-child(3) { animation-delay: 90ms; }
-    .card-metric:nth-child(4) { animation-delay: 135ms; }
+    .row > div:nth-child(2) .card-metric { animation-delay: 45ms; }
+    .row > div:nth-child(3) .card-metric { animation-delay: 90ms; }
+    .row > div:nth-child(4) .card-metric { animation-delay: 135ms; }
     .card-metric {
       min-height: 112px;
       border: 1px solid var(--admin-border);
