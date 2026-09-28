@@ -24,5 +24,5 @@ document.getElementById('adminLoginForm')?.addEventListener('submit', (event) =>
 
   submitButton.disabled = true;
   submitButton.setAttribute('aria-busy', 'true');
-  submitButton.querySelector('.admin-auth-submit-label').textContent = 'Signing in…';
+  submitButton.querySelector('.admin-auth-submit-label').textContent = 'Signing in...';
 });
