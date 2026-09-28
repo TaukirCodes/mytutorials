@@ -76,6 +76,37 @@ WHERE courses.slug = 'php'
       SELECT 1 FROM lessons WHERE lessons.course_id = courses.id AND lessons.slug = 'indexed-arrays'
   );
 
+INSERT INTO lessons (course_id, slug, topic, title, summary, body, code_sample, position, is_published)
+SELECT courses.id, 'python-lists', 'Data Structures', 'Python Lists',
+             'Create a list, access values by index, and iterate over its items.',
+             'A Python list is an ordered, mutable collection. Indexes start at zero, and for loops provide a clear way to process every item without managing an index manually.',
+             'languages = ["Python", "PHP", "JavaScript"]
+print(languages[0])
+
+for language in languages:
+        print(language)',
+             1, 1
+FROM courses
+WHERE courses.slug = 'python'
+    AND NOT EXISTS (
+            SELECT 1 FROM lessons WHERE lessons.course_id = courses.id AND lessons.slug = 'python-lists'
+    );
+
+INSERT INTO lessons (course_id, slug, topic, title, summary, body, code_sample, position, is_published)
+SELECT courses.id, 'modern-javascript-basics', 'ES6+', 'Modern JavaScript Basics',
+             'Use const, arrow functions, and template literals in a small example.',
+             'Modern JavaScript includes concise syntax that makes common operations easier to read. Use const when a binding will not be reassigned, and use template literals when combining text with values.',
+             'const learner = "DevDocs";
+const greet = (name) => `Welcome, ${name}!`;
+
+console.log(greet(learner));',
+             1, 1
+FROM courses
+WHERE courses.slug = 'javascript'
+    AND NOT EXISTS (
+            SELECT 1 FROM lessons WHERE lessons.course_id = courses.id AND lessons.slug = 'modern-javascript-basics'
+    );
+
 INSERT INTO quiz_questions (lesson_id, question, option_a, option_b, option_c, correct_option, explanation, position)
 SELECT lessons.id,
        'What is the index of the first value in a standard PHP indexed array?',
