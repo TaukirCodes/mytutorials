@@ -40,7 +40,7 @@ if ($lesson === null && $databaseError === '') {
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
   <link href="assets/style.css" rel="stylesheet">
 </head>
-<body>
+<body data-current-lesson-id="<?= $lesson ? (int) $lesson['id'] : '' ?>">
   <?php include __DIR__ . '/topnav.php'; ?>
   <div class="wrapper lesson-layout" style="padding-top: 56px;">
     <?php include __DIR__ . '/sidenav.php'; ?>

@@ -23,6 +23,14 @@
             <li class="nav-item me-3">
               <a class="nav-link" href="index.php#courses">Courses</a>
             </li>
+            <li class="nav-item me-lg-3">
+              <label class="visually-hidden" for="languagePicker">Interface language</label>
+              <select class="form-select form-select-sm language-picker" id="languagePicker" aria-label="Interface language">
+                <option value="en">English</option>
+                <option value="hi">हिन्दी</option>
+                <option value="hinglish">Hinglish</option>
+              </select>
+            </li>
             <li class="nav-item">
               <a class="btn btn-blue btn-sm rounded-1 px-3" href="admin/index.php">
                 <i class="bi bi-lock-fill me-1"></i> Admin Portal
