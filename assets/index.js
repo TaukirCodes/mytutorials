@@ -340,8 +340,7 @@ function setSidebarOpen(open) {
   } else {
     sidebar?.classList.toggle('collapsed', !open);
   }
-    sidebar?.classList.toggle('is-open', open && window.matchMedia('(max-width: 767.98px)').matches);
-    document.getElementById('sidebar')?.classList.remove('is-open');
+  sidebar?.classList.toggle('is-open', open && window.matchMedia('(max-width: 767.98px)').matches);
   const toggle = document.getElementById('sidebarToggle');
   if (toggle) {
     toggle.setAttribute('aria-expanded', String(open));
