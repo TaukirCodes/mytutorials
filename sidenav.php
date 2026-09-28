@@ -1,6 +1,6 @@
  <nav id="sidebar" class="py-3 shadow-sm">
       <div class="px-3 mb-3">
-        <h6 class="text-uppercase text-muted fw-bold small">Documentation Explorer</h6>
+        <h6 class="text-uppercase text-muted fw-bold small" data-i18n="sidebar.heading">Learning paths</h6>
       </div>
       <ul class="list-unstyled sidebar-menu">
         <?php foreach ($courses as $course): ?>
@@ -19,6 +19,6 @@
           <?php endif; ?>
         </li>
         <?php endforeach; ?>
-        <?php if ($courses === []): ?><li class="px-3 small text-muted">No published courses yet.</li><?php endif; ?>
+        <?php if ($courses === []): ?><li class="px-3 small text-muted" data-i18n="sidebar.empty">No published courses yet.</li><?php endif; ?>
       </ul>
     </nav>

@@ -38,6 +38,10 @@
       background-color: var(--ink) !important;
       border-bottom: 1px solid var(--ink-border);
     }
+    .navbar-slate .form-control::placeholder {
+      color: #c7d5cf;
+      opacity: 1;
+    }
     .language-picker-label {
       margin-right: 0.4rem;
       color: #bdcec8;
