@@ -505,6 +505,7 @@
     /* Course editor and library */
     .course-editor-card,
     .course-library-panel {
+      --course-ink: var(--admin-ink);
       padding: clamp(1rem, 2.2vw, 1.65rem);
       border: 1px solid var(--admin-border);
       border-radius: 16px;
@@ -544,7 +545,7 @@
     }
     .course-editor-form .form-label {
       margin-bottom: 0.45rem;
-      color: var(--admin-ink);
+      color: var(--course-ink);
       font-size: 0.82rem;
       font-weight: 700;
     }
@@ -591,7 +592,7 @@
       align-items: center;
       gap: 0.55rem;
       margin: 0;
-      color: var(--admin-ink);
+      color: var(--course-ink);
     }
     .course-publish-switch .form-check-input {
       width: 2.45em;
@@ -720,7 +721,7 @@
     }
     .course-card-copy h3 {
       margin: 0;
-      color: var(--admin-ink);
+      color: var(--course-ink);
       font-size: 1rem;
       font-weight: 750;
       line-height: 1.4;
@@ -754,7 +755,7 @@
       color: var(--admin-accent);
     }
     .course-card-meta strong {
-      color: var(--admin-ink);
+      color: var(--course-ink);
     }
     .course-card-footer {
       min-height: 45px;
@@ -810,6 +811,25 @@
     }
     .course-empty-icon {
       margin-bottom: 0.85rem;
+    }
+    html[data-theme="dark"] .course-editor-card,
+    html[data-theme="dark"] .course-library-panel {
+      --course-ink: var(--text-main);
+    }
+    html[data-theme="dark"] .course-status.is-published {
+      border-color: #315d4a;
+      background: #1a3528;
+      color: #9bdfbb;
+    }
+    html[data-theme="dark"] .course-status.is-draft {
+      border-color: #635336;
+      background: #332d1d;
+      color: #e5d5a8;
+    }
+    html[data-theme="dark"] .course-delete-button:hover {
+      border-color: #854744;
+      background: #382321;
+      color: #ffb0a7;
     }
     @media (max-width: 575.98px) {
       .course-editor-actions,
