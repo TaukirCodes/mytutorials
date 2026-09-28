@@ -1,0 +1,80 @@
+    :root {
+      --slate-dark: #0f172a;
+      --slate-sidenav: #1e293b;
+      --slate-border: #334155;
+      --blue-accent: #2563eb;
+      --sb-sidenav-width: 250px;
+    }
+
+    body {
+      background-color: #f8fafc;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      color: #334155;
+    }
+
+    /* Fixed Top Navbar */
+    .sb-topnav {
+      height: 56px;
+      z-index: 1039;
+      background-color: var(--slate-dark) !important;
+      border-bottom: 1px solid var(--slate-border);
+    }
+
+    /* Sidebar Navigation Layout */
+    .sb-layout {
+      display: flex;
+      margin-top: 56px;
+      flex: 1;
+    }
+    #sbSidenav {
+      width: var(--sb-sidenav-width);
+      background-color: var(--slate-sidenav);
+      min-height: calc(100vh - 56px);
+      transition: margin-left 0.3s ease;
+      border-right: 1px solid var(--slate-border);
+    }
+    #sbSidenav.toggled {
+      margin-left: calc(-1 * var(--sb-sidenav-width));
+    }
+
+    /* Sidenav items styling */
+    .sb-sidenav-menu .nav-link {
+      color: #94a3b8;
+      padding: 0.75rem 1rem;
+      font-weight: 500;
+    }
+    .sb-sidenav-menu .nav-link:hover {
+      color: #ffffff;
+      background-color: rgba(255, 255, 255, 0.05);
+    }
+    .sb-sidenav-menu .nav-link.active {
+      color: #ffffff;
+      background-color: var(--blue-accent);
+    }
+    .sb-sidenav-footer {
+      background-color: rgba(0, 0, 0, 0.2);
+      color: #64748b;
+      padding: 0.75rem;
+      border-top: 1px solid var(--slate-border);
+    }
+
+    /* Main Content Styling */
+    .sb-content {
+      flex: 1;
+      padding: 1.5rem;
+      overflow-x: hidden;
+    }
+
+    .badge-notification {
+      position: absolute;
+      top: 6px;
+      right: 6px;
+      font-size: 0.65rem;
+    }
+
+    .card-metric {
+      border: 1px solid #e2e8f0;
+      border-left: 4px solid var(--blue-accent);
+    }

@@ -1,0 +1,23 @@
+create a tutorial website with header and top navbar a toggle sode navbar with frop down menu abd $ubmenu which will be course then topic and subtopic explorer link 
+create a simple footer 
+the website is to be created in bootstrap5
+create an index.html with default course cards on landing page
+the first course in side navbar is PHP with topics introduction then second topic as arrays and below sub topics the chapter(eg)
+
+create a login for admin who would later add all topics the landing page should have code snippet so that users can copy that code snippete from that card and use it, this will be followed in all chapters page in future 
+use teal inspired themes
+
+<---admin dashboard--->
+create an bootstrap5 sb-admin dashboard teal inspired theme with fox topnavbar and toggle sidenav bar with alert notification on top search bar on top nav profile settings and all required for an professional admin dashboard
+the dashboard should have all analysis and quick access cards
+
+
+
+
+
+Assignments-->
+array fn
+numeric fn
+string fn
+diff type operator in PHP
+control fn in php
