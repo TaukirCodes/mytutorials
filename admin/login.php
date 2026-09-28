@@ -146,7 +146,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $databaseReady) {
         <?php else: ?>
           <div class="admin-auth-setup-note admin-auth-setup-note-error" role="status">
             <span><i class="bi bi-database-exclamation" aria-hidden="true"></i></span>
-            <div><strong>Workspace unavailable</strong><p>Check that MySQL is running and your local database settings are correct, then refresh this page.</p></div>
+            <div><strong>Workspace unavailable</strong><p><?= $error !== '' ? e($error) : 'Check that MySQL is running and your local database settings are correct, then refresh this page.' ?></p></div>
           </div>
         <?php endif; ?>
       </div>
