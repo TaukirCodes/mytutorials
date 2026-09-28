@@ -59,14 +59,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $databaseReady) {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Set up administrator | LearnLooma</title>
+  <title>Set up administrator | SkillNovi</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="../assets/style.css" rel="stylesheet">
 </head>
 <body class="auth-page">
   <main class="auth-shell">
     <section class="auth-panel">
-      <a class="brand-mark" href="../index.php">LearnLooma <span>ADMIN</span></a>
+      <a class="brand-mark" href="../index.php">SkillNovi <span>ADMIN</span></a>
       <h1>Create the first admin</h1>
       <p class="text-muted">One-time setup. This page locks after the first administrator is created.</p>
       <?php if (!$setupKeyConfigured && $localSetupAllowed): ?><div class="alert alert-info">Local first-run setup is allowed from this computer only.</div><?php endif; ?>

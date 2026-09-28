@@ -1,5 +1,5 @@
 <footer class="py-3 text-center">
     <div class="container">
-      <p class="mb-0 small">&copy; 2026 LearnLooma. <span data-i18n="footer.note">A practical place to grow your developer skills.</span></p>
+      <p class="mb-0 small">&copy; 2026 SkillNovi. <span data-i18n="footer.note">A practical place to grow your developer skills.</span></p>
     </div>
   </footer>
