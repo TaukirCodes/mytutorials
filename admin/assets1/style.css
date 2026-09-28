@@ -263,6 +263,19 @@
       justify-content: space-between;
       gap: 1rem;
     }
+    @keyframes admin-workspace-enter {
+      from { opacity: 0; transform: translateY(7px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .admin-page-heading,
+    .card-metric,
+    .publish-focus,
+    .content-activity {
+      animation: admin-workspace-enter 300ms ease-out both;
+    }
+    .card-metric:nth-child(2) { animation-delay: 45ms; }
+    .card-metric:nth-child(3) { animation-delay: 90ms; }
+    .card-metric:nth-child(4) { animation-delay: 135ms; }
     .card-metric {
       min-height: 112px;
       border: 1px solid var(--admin-border);
