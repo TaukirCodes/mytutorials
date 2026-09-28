@@ -80,6 +80,9 @@
     .learning-sidebar.collapsed {
       margin-left: -286px;
     }
+      #sidebar.is-open {
+        margin-left: 0;
+      }
     .sidebar-header {
       padding: 1.2rem 1rem 1rem;
       border-bottom: 1px solid var(--border);
