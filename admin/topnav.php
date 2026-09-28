@@ -3,6 +3,9 @@
     <button class="btn admin-menu-toggle" id="adminSidebarToggle" type="button" aria-label="Open admin navigation" aria-controls="sbSidenav" aria-expanded="false"><i class="bi bi-list fs-5"></i></button>
     <span class="admin-topnav-context">Content workspace</span>
     <div class="admin-topnav-actions ms-auto">
+      <button class="theme-mode-toggle theme-mode-toggle-nav" type="button" data-theme-toggle aria-label="Switch to dark theme" aria-pressed="false">
+        <i class="bi bi-moon-stars" data-theme-icon aria-hidden="true"></i><span class="visually-hidden" data-theme-label>Switch to dark theme</span>
+      </button>
       <a class="admin-preview-link" href="../index.php"><i class="bi bi-box-arrow-up-right me-1"></i><span>View learner site</span></a>
       <div class="dropdown">
         <button class="admin-account-button" id="navbarDropdownUser" type="button" data-bs-toggle="dropdown" aria-expanded="false">
