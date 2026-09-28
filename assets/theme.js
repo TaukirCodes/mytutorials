@@ -32,9 +32,12 @@
   };
 
   applyTheme();
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', applyTheme, { once: true });
+  }
 
   document.addEventListener('click', (event) => {
-    const button = event.target.closest('[data-theme-toggle]');
+    const button = event.target instanceof Element ? event.target.closest('[data-theme-toggle]') : null;
     if (!button) return;
 
     theme = theme === 'dark' ? 'light' : 'dark';
