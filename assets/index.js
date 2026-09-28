@@ -335,12 +335,15 @@ async function submitAiRequest(form) {
 
 function setSidebarOpen(open) {
   const sidebar = document.getElementById('sidebar');
-  if (window.matchMedia('(max-width: 767.98px)').matches) {
+  const isMobile = window.matchMedia('(max-width: 767.98px)').matches;
+  if (isMobile) {
     document.body.classList.toggle('sidebar-open', open);
+    if (sidebar) sidebar.style.marginLeft = open ? '0' : '-286px';
   } else {
+    sidebar?.style.removeProperty('margin-left');
     sidebar?.classList.toggle('collapsed', !open);
   }
-  sidebar?.classList.toggle('is-open', open && window.matchMedia('(max-width: 767.98px)').matches);
+  sidebar?.classList.toggle('is-open', open && isMobile);
   const toggle = document.getElementById('sidebarToggle');
   if (toggle) {
     toggle.setAttribute('aria-expanded', String(open));
