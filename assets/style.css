@@ -161,6 +161,19 @@
       padding: 0.75rem 0 1.25rem;
       border-bottom: 1px solid var(--border);
     }
+    .learning-heading > div:first-child {
+      min-width: 0;
+    }
+    .learning-title {
+      white-space: nowrap;
+    }
+    .title-accent {
+      color: var(--accent-hover);
+      text-decoration: underline;
+      text-decoration-color: var(--accent-citrus);
+      text-decoration-thickness: 0.1em;
+      text-underline-offset: 0.16em;
+    }
     .eyebrow {
       color: var(--accent);
       font-size: 0.7rem;
@@ -525,6 +538,9 @@
       .lesson-page-heading {
         align-items: flex-start;
         flex-direction: column;
+      }
+      .learning-title {
+        white-space: normal;
       }
       .lesson-feature {
         min-height: auto;

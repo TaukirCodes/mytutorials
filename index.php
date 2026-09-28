@@ -63,9 +63,9 @@ try {
       <div class="container-fluid learner-dashboard">
         <header class="learning-heading mb-4">
           <div>
-            <p class="eyebrow mb-2" <?= $searchTerm === '' && $courseSlug === '' ? 'data-i18n="home.kicker"' : '' ?>>DEV DOCS / LEARNING LIBRARY</p>
-            <h1 class="h2 fw-bold mb-2" <?= $searchTerm === '' && $courseSlug === '' ? 'data-i18n="home.title"' : '' ?>><?= $searchTerm !== '' ? 'Search results' : ($courseSlug !== '' ? 'Course lessons' : 'Your developer learning space') ?></h1>
-            <p class="text-muted mb-0" <?= $searchTerm === '' && $courseSlug === '' ? 'data-i18n="home.description"' : '' ?>><?= $searchTerm !== '' ? 'Lessons matching “' . e($searchTerm) . '”' : 'Pick up where you left off, or choose a new skill to explore.' ?></p>
+            <p class="eyebrow mb-2" <?= $searchTerm === '' && $courseSlug === '' ? 'data-i18n="home.kicker"' : '' ?>><?= $searchTerm === '' && $courseSlug === '' ? 'LESSONS FOR YOUR NEXT IDEA' : 'DEV DOCS / LEARNING LIBRARY' ?></p>
+            <h1 class="h2 fw-bold mb-2 learning-title"><?php if ($searchTerm === '' && $courseSlug === ''): ?><span data-i18n="home.title.prefix">Turn curiosity</span> <span class="title-accent" data-i18n="home.title.accent">into code.</span><?php else: ?><?= $searchTerm !== '' ? 'Search results' : 'Course lessons' ?><?php endif; ?></h1>
+            <p class="text-muted mb-0" <?= $searchTerm === '' && $courseSlug === '' ? 'data-i18n="home.description"' : '' ?>><?= $searchTerm !== '' ? 'Lessons matching “' . e($searchTerm) . '”' : ($courseSlug !== '' ? 'Focused lessons to help you build practical developer skills.' : 'Learn practical developer skills through focused paths and working code.') ?></p>
           </div>
           <div class="learning-stats"><span><strong><?= count($courses) ?></strong> <span data-i18n="stats.paths">paths</span></span><span><strong><?= count($navigationLessons) ?></strong> <span data-i18n="stats.lessons">lessons</span></span><span data-progress-summary>0 completed</span></div>
         </header>
