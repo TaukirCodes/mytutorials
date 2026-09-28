@@ -17,6 +17,11 @@
           </form>
 
           <ul class="navbar-nav ms-auto align-items-center">
+            <li class="nav-item me-3">
+              <button class="theme-mode-toggle theme-mode-toggle-nav" type="button" data-theme-toggle aria-label="Switch to dark theme" aria-pressed="false">
+                <i class="bi bi-moon-stars" data-theme-icon aria-hidden="true"></i><span class="visually-hidden" data-theme-label>Switch to dark theme</span>
+              </button>
+            </li>
             <li class="nav-item">
               <a class="nav-link active" href="index.php" data-i18n="nav.explorer">Explore</a>
             </li>
