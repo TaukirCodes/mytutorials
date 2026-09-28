@@ -23,7 +23,7 @@
   position: relative;
   display: grid;
   width: min(100%, 1080px);
-  min-height: min(680px, calc(100vh - 4rem));
+  min-height: min(680px, calc(100vh - 5.5rem));
   grid-template-columns: minmax(0, 1.02fr) minmax(420px, 0.98fr);
   overflow: hidden;
   border: 1px solid rgba(25, 59, 53, 0.1);
@@ -267,9 +267,23 @@
 }
 
 .admin-auth-form-eyebrow {
+  width: fit-content;
+  padding: 0.4rem 0.62rem;
+  border: 1px solid #d7e9df;
+  border-radius: 999px;
+  background: #f1f8f4;
   margin-bottom: 0.55rem;
   color: var(--auth-accent);
   font-size: 0.62rem;
+}
+
+.admin-auth-form-eyebrow::before {
+  width: 6px;
+  height: 6px;
+  flex: 0 0 6px;
+  border-radius: 50%;
+  background: var(--auth-accent);
+  content: "";
 }
 
 .admin-auth-form-content h2 {
@@ -525,6 +539,8 @@
   border-top: 1px solid #edf1ee;
   color: #88958f;
   font-size: 0.64rem;
+  margin-top: 0;
+  background: transparent;
 }
 
 @media (max-width: 850px) {
