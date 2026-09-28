@@ -95,8 +95,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $databaseReady) {
       <div class="admin-auth-form-topline">
         <span class="admin-auth-mobile-brand"><i class="bi bi-braces-asterisk me-2" aria-hidden="true"></i>SkillNovi <small>STUDIO</small></span>
         <div class="admin-auth-top-actions">
-          <button class="theme-mode-toggle" type="button" data-theme-toggle aria-label="Switch to dark theme" aria-pressed="false"><i class="bi bi-moon-stars" data-theme-icon aria-hidden="true"></i><span class="visually-hidden" data-theme-label>Switch to dark theme</span></button>
           <a href="../index.php" class="admin-auth-back"><i class="bi bi-arrow-left me-1" aria-hidden="true"></i> Learner site</a>
+          <button class="theme-mode-toggle" type="button" data-theme-toggle aria-label="Switch to dark theme" aria-pressed="false"><i class="bi bi-moon-stars" data-theme-icon aria-hidden="true"></i><span class="visually-hidden" data-theme-label>Switch to dark theme</span></button>
         </div>
       </div>
 
@@ -127,7 +127,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $databaseReady) {
             <label class="admin-auth-label" for="adminEmail">Email address</label>
             <div class="admin-auth-input-wrap">
               <i class="bi bi-envelope" aria-hidden="true"></i>
-              <input class="form-control" id="adminEmail" type="email" name="email" value="<?= e($submittedEmail) ?>" placeholder="name@example.com" required autocomplete="username" autocapitalize="none" spellcheck="false" inputmode="email">
+              <input class="form-control" id="adminEmail" type="email" name="email" value="<?= e($submittedEmail) ?>" placeholder="admin@example.com" required autocomplete="username" autocapitalize="none" spellcheck="false" inputmode="email">
             </div>
 
             <div class="admin-auth-password-heading">
@@ -135,7 +135,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $databaseReady) {
             </div>
             <div class="admin-auth-input-wrap admin-auth-password-wrap">
               <i class="bi bi-lock" aria-hidden="true"></i>
-              <input class="form-control" id="adminPassword" type="password" name="password" placeholder="Enter your password" required autocomplete="current-password">
+              <input class="form-control" id="adminPassword" type="password" name="password" placeholder="Enter your admin password" required autocomplete="current-password">
               <button class="admin-auth-password-toggle" type="button" data-password-toggle aria-label="Show password" aria-pressed="false">
                 <i class="bi bi-eye" aria-hidden="true"></i><span>Show</span>
               </button>
