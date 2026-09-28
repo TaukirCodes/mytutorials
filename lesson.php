@@ -54,43 +54,43 @@ if ($lesson === null && $databaseError === '') {
           <nav aria-label="breadcrumb"><ol class="breadcrumb small"><li class="breadcrumb-item"><a href="index.php" class="text-decoration-none"><?= e($lesson['course_title']) ?></a></li><li class="breadcrumb-item active" aria-current="page"><?= e($lesson['topic']) ?></li></ol></nav>
           <header class="lesson-page-heading mb-4">
             <div><p class="eyebrow mb-2"><?= e($lesson['course_title']) ?> / <?= e($lesson['topic']) ?></p><h1 class="h2 fw-bold mb-2"><?= e($lesson['title']) ?></h1><p class="text-muted mb-0"><?= e($lesson['summary']) ?></p></div>
-            <div class="lesson-actions"><button type="button" class="btn btn-outline-secondary" data-progress-toggle data-lesson-id="<?= (int) $lesson['id'] ?>"><i class="bi bi-check2-circle me-1"></i><span>Mark complete</span></button><button type="button" class="btn btn-outline-secondary" data-bookmark-toggle data-lesson-id="<?= (int) $lesson['id'] ?>"><i class="bi bi-bookmark me-1"></i><span>Save lesson</span></button></div>
+            <div class="lesson-actions"><button type="button" class="btn btn-outline-secondary" data-progress-toggle data-lesson-id="<?= (int) $lesson['id'] ?>"><i class="bi bi-check2-circle me-1"></i><span data-i18n="lesson.mark">Mark complete</span></button><button type="button" class="btn btn-outline-secondary" data-bookmark-toggle data-lesson-id="<?= (int) $lesson['id'] ?>"><i class="bi bi-bookmark me-1"></i><span data-i18n="lesson.save">Save lesson</span></button></div>
           </header>
 
           <article class="lesson-article mb-4"><div class="lesson-prose"><?= nl2br(e($lesson['body'])) ?></div></article>
 
           <?php if (trim($lesson['code_sample']) !== ''): ?>
           <section class="card shadow-sm border-0 mb-4 code-snippet-card" aria-labelledby="code-title">
-            <div class="card-header text-white d-flex justify-content-between align-items-center py-2"><span id="code-title" class="small fw-semibold"><i class="bi bi-code-slash me-2 text-primary"></i>Code example</span><button class="btn btn-sm btn-outline-light border-secondary" type="button" data-copy-code="lessonCode"><i class="bi bi-clipboard me-1"></i>Copy code</button></div>
+            <div class="card-header text-white d-flex justify-content-between align-items-center py-2"><span id="code-title" class="small fw-semibold"><i class="bi bi-code-slash me-2 text-primary"></i><span data-i18n="lesson.code">Code example</span></span><button class="btn btn-sm btn-outline-light border-secondary" type="button" data-copy-code="lessonCode"><i class="bi bi-clipboard me-1"></i><span data-i18n="lesson.copy">Copy code</span></button></div>
             <div class="card-body p-0"><pre><code id="lessonCode"><?= e($lesson['code_sample']) ?></code></pre></div>
           </section>
           <?php endif; ?>
 
           <?php if ($question): ?>
           <section class="learning-tool-section mb-4" aria-labelledby="quiz-title">
-            <div class="section-heading"><div><p class="eyebrow mb-1">QUICK CHECK</p><h2 class="h5 fw-bold mb-0" id="quiz-title">Check your understanding</h2></div></div>
+            <div class="section-heading"><div><p class="eyebrow mb-1" data-i18n="lesson.quiz.kicker">QUICK CHECK</p><h2 class="h5 fw-bold mb-0" id="quiz-title" data-i18n="lesson.quiz.title">Check your understanding</h2></div></div>
             <form class="quiz-form mt-3" data-quiz-form>
               <input type="hidden" name="question_id" value="<?= (int) $question['id'] ?>"><p class="fw-semibold"><?= e($question['question']) ?></p>
               <?php foreach (['a' => 'option_a', 'b' => 'option_b', 'c' => 'option_c'] as $key => $column): ?>
               <label class="quiz-option"><input type="radio" name="answer" value="<?= e($key) ?>" required><span><?= e($question[$column]) ?></span></label>
               <?php endforeach; ?>
-              <button class="btn btn-outline-primary btn-sm mt-3" type="submit">Check answer</button><p class="small mt-3 mb-0" data-quiz-result aria-live="polite"></p>
+              <button class="btn btn-outline-primary btn-sm mt-3" type="submit" data-i18n="lesson.quiz.submit">Check answer</button><p class="small mt-3 mb-0" data-quiz-result aria-live="polite"></p>
             </form>
           </section>
           <?php endif; ?>
 
           <section class="learning-tool-section ai-tutor-section" aria-labelledby="tutor-title">
-            <div class="section-heading"><div><p class="eyebrow mb-1">LEARN WITH CONTEXT</p><h2 class="h5 fw-bold mb-0" id="tutor-title">Ask the AI tutor</h2></div></div>
-            <p class="small text-muted mt-2">Your question, this lesson, and any code you add below will be sent to OpenAI only after you confirm this request.</p>
+            <div class="section-heading"><div><p class="eyebrow mb-1" data-i18n="lesson.ai.kicker">LEARN WITH CONTEXT</p><h2 class="h5 fw-bold mb-0" id="tutor-title" data-i18n="lesson.ai.title">Ask the AI tutor</h2></div></div>
+            <p class="small text-muted mt-2" data-i18n="lesson.ai.description">Your question, this lesson, and any code you add below will be sent to OpenAI only after you confirm this request.</p>
             <form class="vstack gap-3" data-ai-form>
               <input type="hidden" name="lesson_id" value="<?= (int) $lesson['id'] ?>">
-              <label class="form-label mb-0">What do you want help with?
-                <select class="form-select mt-1" name="mode"><option value="tutor">Explain this lesson</option><option value="debug">Review my code</option></select>
+              <label class="form-label mb-0"><span data-i18n="lesson.ai.mode">What do you want help with?</span>
+                <select class="form-select mt-1" name="mode"><option value="tutor" data-i18n="lesson.ai.explain">Explain this lesson</option><option value="debug" data-i18n="lesson.ai.debug">Review my code</option></select>
               </label>
-              <label class="form-label mb-0">Question<textarea class="form-control mt-1" name="question" rows="2" maxlength="2000" required placeholder="Ask a focused question about this lesson"></textarea></label>
-              <label class="form-label mb-0">Your code (optional)<textarea class="form-control font-monospace mt-1" name="user_code" rows="4" maxlength="12000" spellcheck="false" placeholder="Paste only code you are comfortable sharing with OpenAI"></textarea></label>
-              <label class="form-check"><input class="form-check-input" type="checkbox" name="consent" value="1" required><span class="form-check-label small">I confirm that this question and lesson context may be sent to OpenAI for this request.</span></label>
-              <div><button class="btn btn-blue" type="submit"><i class="bi bi-stars me-1"></i>Ask tutor</button></div>
+              <label class="form-label mb-0"><span data-i18n="lesson.ai.question">Question</span><textarea class="form-control mt-1" name="question" rows="2" maxlength="2000" required placeholder="Ask a focused question about this lesson" data-i18n-placeholder="lesson.ai.question.placeholder"></textarea></label>
+              <label class="form-label mb-0"><span data-i18n="lesson.ai.code">Your code (optional)</span><textarea class="form-control font-monospace mt-1" name="user_code" rows="4" maxlength="12000" spellcheck="false" placeholder="Paste only code you are comfortable sharing with OpenAI" data-i18n-placeholder="lesson.ai.code.placeholder"></textarea></label>
+              <label class="form-check"><input class="form-check-input" type="checkbox" name="consent" value="1" required><span class="form-check-label small" data-i18n="lesson.ai.consent">I confirm that this question and lesson context may be sent to OpenAI for this request.</span></label>
+              <div><button class="btn btn-blue" type="submit"><i class="bi bi-stars me-1"></i><span data-i18n="lesson.ai.submit">Ask tutor</span></button></div>
               <div class="ai-response" data-ai-response aria-live="polite" hidden></div>
             </form>
           </section>
