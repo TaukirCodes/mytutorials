@@ -1,8 +1,109 @@
 
 const progressKey = 'devdocs.progress.v1';
 const bookmarksKey = 'devdocs.bookmarks.v1';
+const lastVisitedKey = 'devdocs.last-visited.v1';
+const localeKey = 'devdocs.locale.v1';
 const csrfToken = document.querySelector('meta[name="csrf-token"]')?.content ?? '';
 let showSavedOnly = false;
+
+const translations = {
+  en: {
+    'nav.explorer': 'Explore', 'nav.courses': 'Learning paths', 'nav.admin': 'Admin portal',
+    'home.kicker': 'DEV DOCS / LEARNING LIBRARY', 'home.title': 'Your developer learning space',
+    'home.description': 'Pick up where you left off, or choose a new skill to explore.',
+    'home.continue.kicker': 'PICK UP WHERE YOU LEFT OFF', 'home.continue.title': 'Continue learning',
+    'home.start.kicker': 'A GOOD PLACE TO START', 'home.start.title': 'Choose a path. Build a real skill.',
+    'home.start.description': 'Follow focused lessons, practice what you learn, and grow at your own pace.',
+    'home.start.action': 'Explore learning paths', 'home.paths.kicker': 'LEARNING PATHS',
+    'home.paths.title': 'Choose what you want to build', 'home.paths.note': 'Free to start · Learn at your pace',
+    'home.search.kicker': 'SMART DISCOVERY', 'home.search.title': 'Describe what you want to learn',
+    'home.search.placeholder': 'For example: how do I loop through a list?',
+    'home.search.action': 'Find lessons', 'home.search.consent': 'I confirm this query may be sent to OpenAI.',
+    'home.lesson.kicker': 'KEEP GOING', 'home.lesson.title': 'Lessons', 'home.saved': 'Saved lessons',
+    'home.saved.show': 'Show all lessons', 'home.saved.filter': 'Saved lessons',
+    'home.language.notice': 'Interface language changed. Lesson content remains in its author-provided language.',
+    'stats.paths': 'paths', 'stats.lessons': 'lessons', 'stats.results': 'results',
+    'stats.completed': '{count} completed in this browser', 'lesson.start': 'Start lesson', 'lesson.done': 'Completed',
+  },
+  hi: {
+    'nav.explorer': 'सीखें', 'nav.courses': 'लर्निंग पाथ', 'nav.admin': 'एडमिन पोर्टल',
+    'home.kicker': 'DEV DOCS / लर्निंग लाइब्रेरी', 'home.title': 'आपकी डेवलपर लर्निंग स्पेस',
+    'home.description': 'जहाँ छोड़ा था वहीं से शुरू करें, या कोई नई स्किल चुनें।',
+    'home.continue.kicker': 'यहीं से आगे बढ़ें', 'home.continue.title': 'सीखना जारी रखें',
+    'home.start.kicker': 'यहाँ से शुरू करें', 'home.start.title': 'एक पाथ चुनें। काम की स्किल बनाएँ।',
+    'home.start.description': 'छोटे lessons करें, सीखी हुई चीज़ों की practice करें और अपनी गति से आगे बढ़ें।',
+    'home.start.action': 'लर्निंग पाथ देखें', 'home.paths.kicker': 'लर्निंग पाथ',
+    'home.paths.title': 'आप क्या बनाना सीखना चाहते हैं?', 'home.paths.note': 'शुरुआत मुफ़्त · अपनी गति से सीखें',
+    'home.search.kicker': 'स्मार्ट खोज', 'home.search.title': 'बताएँ कि आप क्या सीखना चाहते हैं',
+    'home.search.placeholder': 'उदाहरण: list के items पर loop कैसे चलाएँ?',
+    'home.search.action': 'Lessons खोजें', 'home.search.consent': 'मैं सहमत हूँ कि यह query इस request के लिए OpenAI को भेजी जा सकती है।',
+    'home.lesson.kicker': 'आगे सीखें', 'home.lesson.title': 'Lessons', 'home.saved': 'सेव किए lessons',
+    'home.saved.show': 'सभी lessons दिखाएँ', 'home.saved.filter': 'सेव किए lessons',
+    'home.language.notice': 'Interface की भाषा बदली गई है। Lesson का content लेखक की चुनी हुई भाषा में ही रहेगा।',
+    'stats.paths': 'पाथ', 'stats.lessons': 'lessons', 'stats.results': 'नतीजे',
+    'stats.completed': 'इस browser में {count} पूरे किए', 'lesson.start': 'Lesson शुरू करें', 'lesson.done': 'पूरा हुआ',
+  },
+  hinglish: {
+    'nav.explorer': 'Explore karo', 'nav.courses': 'Learning paths', 'nav.admin': 'Admin portal',
+    'home.kicker': 'DEV DOCS / LEARNING LIBRARY', 'home.title': 'Aapki developer learning space',
+    'home.description': 'Jahan chhoda tha wahan se continue karein, ya nayi skill explore karein.',
+    'home.continue.kicker': 'YAHIN SE AAGE BADHEIN', 'home.continue.title': 'Learning continue karein',
+    'home.start.kicker': 'YAHAN SE SHURU KAREIN', 'home.start.title': 'Ek path choose karein. Real skill build karein.',
+    'home.start.description': 'Focused lessons follow karein, seekhi hui cheez practice karein, aur apni pace se grow karein.',
+    'home.start.action': 'Learning paths dekhein', 'home.paths.kicker': 'LEARNING PATHS',
+    'home.paths.title': 'Aap kya build karna seekhna chahte hain?', 'home.paths.note': 'Start free · Apni pace se seekhein',
+    'home.search.kicker': 'SMART DISCOVERY', 'home.search.title': 'Batayein aap kya seekhna chahte hain',
+    'home.search.placeholder': 'Example: list ke items par loop kaise chalate hain?',
+    'home.search.action': 'Lessons dhoondein', 'home.search.consent': 'Main confirm karta hoon ki yeh query is request ke liye OpenAI ko bheji ja sakti hai.',
+    'home.lesson.kicker': 'AAPKA NEXT STEP', 'home.lesson.title': 'Lessons', 'home.saved': 'Saved lessons',
+    'home.saved.show': 'Saare lessons dekhein', 'home.saved.filter': 'Saved lessons',
+    'home.language.notice': 'Interface language badli gayi hai. Lesson content author ki language mein hi rahega.',
+    'stats.paths': 'paths', 'stats.lessons': 'lessons', 'stats.results': 'results',
+    'stats.completed': 'Is browser mein {count} complete hue', 'lesson.start': 'Lesson shuru karein', 'lesson.done': 'Complete',
+  },
+};
+
+function getInitialLocale() {
+  try {
+    const saved = localStorage.getItem(localeKey);
+    if (saved && translations[saved]) return saved;
+  } catch {
+    return navigator.language?.toLowerCase().startsWith('hi') ? 'hi' : 'en';
+  }
+  return navigator.language?.toLowerCase().startsWith('hi') ? 'hi' : 'en';
+}
+
+let currentLocale = getInitialLocale();
+
+function translate(key) {
+  return translations[currentLocale]?.[key] ?? translations.en[key] ?? key;
+}
+
+function applyLocale(locale, persist = true) {
+  currentLocale = translations[locale] ? locale : 'en';
+  document.documentElement.lang = currentLocale === 'hi' ? 'hi' : currentLocale === 'hinglish' ? 'hi-Latn' : 'en';
+  document.querySelectorAll('[data-i18n]').forEach((element) => {
+    element.textContent = translate(element.dataset.i18n);
+  });
+  document.querySelectorAll('[data-i18n-placeholder]').forEach((element) => {
+    element.setAttribute('placeholder', translate(element.dataset.i18nPlaceholder));
+  });
+
+  const picker = document.querySelector('[data-language-picker]');
+  if (picker) picker.value = currentLocale;
+  const notice = document.querySelector('[data-content-language-note]');
+  if (notice) {
+    notice.hidden = currentLocale === 'en';
+    notice.textContent = currentLocale === 'en' ? '' : translate('home.language.notice');
+  }
+  if (persist) {
+    try {
+      localStorage.setItem(localeKey, currentLocale);
+    } catch {
+      return;
+    }
+  }
+}
 
 function readIds(key) {
   try {
@@ -32,30 +133,46 @@ function setToggleLabel(button, active, activeText, inactiveText, activeIcon, in
 function refreshProgress() {
   const completed = readIds(progressKey);
   const bookmarks = readIds(bookmarksKey);
+  let lastVisited = '';
+  try {
+    lastVisited = localStorage.getItem(lastVisitedKey) ?? '';
+  } catch {
+    lastVisited = '';
+  }
   document.querySelectorAll('[data-lesson-row]').forEach((row) => {
     const state = row.querySelector('[data-progress-state]');
-    if (state && completed.includes(row.dataset.lessonId)) state.textContent = 'Completed';
+    if (state) state.textContent = completed.includes(row.dataset.lessonId) ? translate('lesson.done') : translate('lesson.start');
     const bookmark = row.querySelector('[data-bookmark-state]');
     if (bookmark) bookmark.textContent = bookmarks.includes(row.dataset.lessonId) ? 'Saved' : '';
     row.hidden = showSavedOnly && !bookmarks.includes(row.dataset.lessonId);
   });
 
   const summary = document.querySelector('[data-progress-summary]');
-  if (summary) summary.textContent = `${completed.length} completed in this browser`;
+  if (summary) summary.textContent = translate('stats.completed').replace('{count}', completed.length);
 
   const recommendation = document.querySelector('[data-next-lesson]');
   const recommendationLink = recommendation?.querySelector('[data-next-lesson-link]');
-  const nextRow = Array.from(document.querySelectorAll('[data-lesson-row]')).find((row) => !completed.includes(row.dataset.lessonId));
+  const newLearner = document.querySelector('[data-new-learner]');
+  const rows = Array.from(document.querySelectorAll('[data-lesson-row]'));
+  const lastVisitedRow = rows.find((row) => row.dataset.lessonId === lastVisited);
+  const nextRow = lastVisitedRow ?? rows.find((row) => !completed.includes(row.dataset.lessonId));
   if (recommendation && recommendationLink && nextRow) {
     recommendation.hidden = false;
+    if (newLearner) newLearner.hidden = true;
     recommendationLink.href = nextRow.href;
-    const lessonTitle = nextRow.querySelector('strong')?.textContent ?? 'Continue learning';
+    const lessonTitle = nextRow.querySelector('strong')?.textContent ?? translate('home.continue.title');
     const title = recommendationLink.querySelector('[data-next-lesson-title]');
-    if (title) title.textContent = `Continue: ${lessonTitle}`;
+    if (title) title.textContent = `${translate('home.continue.title')}: ${lessonTitle}`;
     const meta = recommendation.querySelector('[data-next-lesson-meta]');
     if (meta) meta.textContent = nextRow.querySelector('.lesson-row-copy > span:first-child')?.textContent ?? 'Picked for your next step.';
   } else if (recommendation) {
     recommendation.hidden = true;
+    if (newLearner) newLearner.hidden = true;
+  }
+  if (!nextRow && rows.length === 0 && newLearner) {
+    newLearner.hidden = false;
+  } else if (!lastVisited && completed.length === 0 && newLearner) {
+    newLearner.hidden = false;
   }
 
   const lessonId = document.querySelector('[data-progress-toggle]')?.dataset.lessonId;
@@ -188,7 +305,12 @@ document.querySelector('[data-ai-form]')?.addEventListener('submit', (event) => 
 document.querySelector('[data-show-bookmarks]')?.addEventListener('click', (event) => {
   showSavedOnly = !showSavedOnly;
   event.currentTarget.setAttribute('aria-pressed', String(showSavedOnly));
-  event.currentTarget.textContent = showSavedOnly ? 'Show all lessons' : 'Saved lessons';
+  event.currentTarget.textContent = showSavedOnly ? translate('home.saved.show') : translate('home.saved.filter');
+  refreshProgress();
+});
+
+document.querySelector('[data-language-picker]')?.addEventListener('change', (event) => {
+  applyLocale(event.currentTarget.value);
   refreshProgress();
 });
 
@@ -249,4 +371,14 @@ document.querySelector('[data-smart-search-form]')?.addEventListener('submit', a
   }
 });
 
+const currentLessonId = document.body.dataset.currentLessonId;
+if (currentLessonId) {
+  try {
+    localStorage.setItem(lastVisitedKey, currentLessonId);
+  } catch {
+    // Learning pages remain usable if browser storage is unavailable.
+  }
+}
+
+applyLocale(currentLocale, false);
 refreshProgress();
