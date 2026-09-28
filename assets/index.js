@@ -9,6 +9,7 @@ let showSavedOnly = false;
 const translations = {
   en: {
     'nav.explorer': 'Explore', 'nav.courses': 'Learning paths', 'nav.admin': 'Admin portal',
+    'nav.language': 'Language', 'course.open': 'Open path',
     'home.kicker': 'DEV DOCS / LEARNING LIBRARY', 'home.title': 'Your developer learning space',
     'home.description': 'Pick up where you left off, or choose a new skill to explore.',
     'home.continue.kicker': 'PICK UP WHERE YOU LEFT OFF', 'home.continue.title': 'Continue learning',
@@ -27,6 +28,7 @@ const translations = {
   },
   hi: {
     'nav.explorer': 'सीखें', 'nav.courses': 'लर्निंग पाथ', 'nav.admin': 'एडमिन पोर्टल',
+    'nav.language': 'भाषा', 'course.open': 'पाथ खोलें',
     'home.kicker': 'DEV DOCS / लर्निंग लाइब्रेरी', 'home.title': 'आपकी डेवलपर लर्निंग स्पेस',
     'home.description': 'जहाँ छोड़ा था वहीं से शुरू करें, या कोई नई स्किल चुनें।',
     'home.continue.kicker': 'यहीं से आगे बढ़ें', 'home.continue.title': 'सीखना जारी रखें',
@@ -45,6 +47,7 @@ const translations = {
   },
   hinglish: {
     'nav.explorer': 'Explore karo', 'nav.courses': 'Learning paths', 'nav.admin': 'Admin portal',
+    'nav.language': 'Language', 'course.open': 'Path kholein',
     'home.kicker': 'DEV DOCS / LEARNING LIBRARY', 'home.title': 'Aapki developer learning space',
     'home.description': 'Jahan chhoda tha wahan se continue karein, ya nayi skill explore karein.',
     'home.continue.kicker': 'YAHIN SE AAGE BADHEIN', 'home.continue.title': 'Learning continue karein',
@@ -156,7 +159,8 @@ function refreshProgress() {
   const rows = Array.from(document.querySelectorAll('[data-lesson-row]'));
   const lastVisitedRow = rows.find((row) => row.dataset.lessonId === lastVisited);
   const nextRow = lastVisitedRow ?? rows.find((row) => !completed.includes(row.dataset.lessonId));
-  if (recommendation && recommendationLink && nextRow) {
+  const needsFirstPath = !lastVisited && completed.length === 0;
+  if (recommendation && recommendationLink && nextRow && !needsFirstPath) {
     recommendation.hidden = false;
     if (newLearner) newLearner.hidden = true;
     recommendationLink.href = nextRow.href;
@@ -167,12 +171,7 @@ function refreshProgress() {
     if (meta) meta.textContent = nextRow.querySelector('.lesson-row-copy > span:first-child')?.textContent ?? 'Picked for your next step.';
   } else if (recommendation) {
     recommendation.hidden = true;
-    if (newLearner) newLearner.hidden = true;
-  }
-  if (!nextRow && rows.length === 0 && newLearner) {
-    newLearner.hidden = false;
-  } else if (!lastVisited && completed.length === 0 && newLearner) {
-    newLearner.hidden = false;
+    if (newLearner) newLearner.hidden = !needsFirstPath;
   }
 
   const lessonId = document.querySelector('[data-progress-toggle]')?.dataset.lessonId;

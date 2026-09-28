@@ -18,14 +18,15 @@
 
           <ul class="navbar-nav ms-auto align-items-center">
             <li class="nav-item">
-              <a class="nav-link active" href="index.php">Explorer</a>
+              <a class="nav-link active" href="index.php" data-i18n="nav.explorer">Explore</a>
             </li>
             <li class="nav-item me-3">
-              <a class="nav-link" href="index.php#courses">Courses</a>
+              <a class="nav-link" href="index.php#courses" data-i18n="nav.courses">Learning paths</a>
             </li>
             <li class="nav-item me-lg-3">
               <label class="visually-hidden" for="languagePicker">Interface language</label>
-              <select class="form-select form-select-sm language-picker" id="languagePicker" aria-label="Interface language">
+              <span class="language-picker-label" data-i18n="nav.language">Language</span>
+              <select class="form-select form-select-sm language-picker" id="languagePicker" data-language-picker aria-label="Interface language">
                 <option value="en">English</option>
                 <option value="hi">हिन्दी</option>
                 <option value="hinglish">Hinglish</option>
@@ -33,7 +34,7 @@
             </li>
             <li class="nav-item">
               <a class="btn btn-blue btn-sm rounded-1 px-3" href="admin/index.php">
-                <i class="bi bi-lock-fill me-1"></i> Admin Portal
+                <i class="bi bi-lock-fill me-1"></i><span data-i18n="nav.admin">Admin portal</span>
               </a>
             </li>
           </ul>
