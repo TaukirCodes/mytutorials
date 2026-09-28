@@ -12,8 +12,8 @@
 
         <div class="collapse navbar-collapse" id="topNavbar">
           <form class="d-flex mx-auto my-2 my-lg-0 w-50" action="index.php" method="get" role="search">
-            <input class="form-control bg-dark text-white border-secondary me-2" type="search" name="q" value="<?= e($searchTerm ?? '') ?>" placeholder="Search lessons and topics..." aria-label="Search lessons and topics">
-            <button class="btn btn-blue" type="submit" aria-label="Search"><i class="bi bi-search"></i></button>
+            <input class="form-control bg-dark text-white border-secondary me-2" type="search" name="q" value="<?= e($searchTerm ?? '') ?>" placeholder="Search lessons and topics..." aria-label="Search lessons and topics" data-i18n-placeholder="nav.search.placeholder" data-i18n-aria-label="nav.search.label">
+            <button class="btn btn-blue" type="submit" aria-label="Search" data-i18n-aria-label="nav.search.action"><i class="bi bi-search"></i></button>
           </form>
 
           <ul class="navbar-nav ms-auto align-items-center">
