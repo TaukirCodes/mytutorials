@@ -8,6 +8,8 @@ $database = db();
 $error = '';
 $editing = null;
 $editingQuestion = null;
+$statusFilter = (string) ($_GET['status'] ?? 'all');
+$statusFilter = in_array($statusFilter, ['all', 'draft', 'published'], true) ? $statusFilter : 'all';
 $courses = $database->query('SELECT id, title FROM courses ORDER BY title')->fetchAll();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -106,7 +108,14 @@ if (isset($_GET['edit'])) {
     }
 }
 
-$lessons = $database->query('SELECT lessons.*, courses.title AS course_title FROM lessons JOIN courses ON courses.id = lessons.course_id ORDER BY courses.title, lessons.position, lessons.title')->fetchAll();
+$lessonQuery = 'SELECT lessons.*, courses.title AS course_title FROM lessons JOIN courses ON courses.id = lessons.course_id';
+if ($statusFilter === 'draft') {
+  $lessonQuery .= ' WHERE lessons.is_published = 0';
+} elseif ($statusFilter === 'published') {
+  $lessonQuery .= ' WHERE lessons.is_published = 1';
+}
+$lessonQuery .= ' ORDER BY lessons.is_published ASC, courses.title, lessons.position, lessons.title';
+$lessons = $database->query($lessonQuery)->fetchAll();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -158,6 +167,14 @@ $lessons = $database->query('SELECT lessons.*, courses.title AS course_title FRO
     </section>
 
     <section class="admin-form-section">
+      <div class="lesson-list-toolbar">
+        <div><h2 class="h5 fw-bold mb-1">Lesson library</h2><p class="small text-muted mb-0"><?= count($lessons) ?> <?= $statusFilter === 'all' ? 'total' : e($statusFilter) ?> lessons</p></div>
+        <div class="btn-group btn-group-sm" role="group" aria-label="Filter lessons by status">
+          <a class="btn <?= $statusFilter === 'all' ? 'btn-primary' : 'btn-outline-secondary' ?>" href="lessons.php">All</a>
+          <a class="btn <?= $statusFilter === 'draft' ? 'btn-primary' : 'btn-outline-secondary' ?>" href="lessons.php?status=draft">Drafts</a>
+          <a class="btn <?= $statusFilter === 'published' ? 'btn-primary' : 'btn-outline-secondary' ?>" href="lessons.php?status=published">Published</a>
+        </div>
+      </div>
       <div class="table-responsive"><table class="table align-middle mb-0">
         <thead><tr><th>Lesson</th><th>Course</th><th>Topic</th><th>Status</th><th class="text-end">Actions</th></tr></thead>
         <tbody>

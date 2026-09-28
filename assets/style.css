@@ -161,6 +161,9 @@
       border-radius: 6px;
       background: linear-gradient(100deg, #e8f3ed, #f9fcfa 72%);
     }
+    .continue-panel[hidden] {
+      display: none;
+    }
     .continue-panel-icon {
       display: grid;
       width: 44px;
