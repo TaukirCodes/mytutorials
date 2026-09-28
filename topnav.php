@@ -5,6 +5,9 @@
           <i class="bi bi-list" aria-hidden="true"></i>
         </button>
         <a class="navbar-brand fw-bold text-white ms-1" href="index.php"><i class="bi bi-braces-asterisk me-2 text-primary"></i>SkillNovi</a>
+        <button class="theme-mode-toggle theme-mode-toggle-nav me-2" type="button" data-theme-toggle aria-label="Switch to dark theme" aria-pressed="false">
+          <i class="bi bi-moon-stars" data-theme-icon aria-hidden="true"></i><span class="visually-hidden" data-theme-label>Switch to dark theme</span>
+        </button>
         
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#topNavbar">
           <span class="navbar-toggler-icon"></span>
@@ -17,11 +20,6 @@
           </form>
 
           <ul class="navbar-nav ms-auto align-items-center">
-            <li class="nav-item me-3">
-              <button class="theme-mode-toggle theme-mode-toggle-nav" type="button" data-theme-toggle aria-label="Switch to dark theme" aria-pressed="false">
-                <i class="bi bi-moon-stars" data-theme-icon aria-hidden="true"></i><span class="visually-hidden" data-theme-label>Switch to dark theme</span>
-              </button>
-            </li>
             <li class="nav-item">
               <a class="nav-link active" href="index.php" data-i18n="nav.explorer">Explore</a>
             </li>
