@@ -61,12 +61,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $databaseReady) {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Set up administrator | SkillNovi</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
   <link href="../assets/style.css" rel="stylesheet">
+  <link href="../assets/theme.css" rel="stylesheet">
+  <script src="../assets/theme.js"></script>
 </head>
 <body class="auth-page">
   <main class="auth-shell">
     <section class="auth-panel">
-      <a class="brand-mark" href="../index.php">SkillNovi <span>ADMIN</span></a>
+      <div class="admin-setup-topline">
+        <a class="brand-mark" href="../index.php">SkillNovi <span>ADMIN</span></a>
+        <button class="theme-mode-toggle" type="button" data-theme-toggle aria-label="Switch to dark theme" aria-pressed="false"><i class="bi bi-moon-stars" data-theme-icon aria-hidden="true"></i><span class="visually-hidden" data-theme-label>Switch to dark theme</span></button>
+      </div>
       <h1>Create the first admin</h1>
       <p class="text-muted">One-time setup. This page locks after the first administrator is created.</p>
       <?php if (!$setupKeyConfigured && $localSetupAllowed): ?><div class="alert alert-info">Local first-run setup is allowed from this computer only.</div><?php endif; ?>
