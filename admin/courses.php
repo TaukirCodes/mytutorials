@@ -151,7 +151,7 @@ $courses = $database->query('SELECT courses.*, COUNT(lessons.id) AS lesson_count
               <footer class="course-card-footer">
                 <span class="course-card-footer-label">COURSE TRACK</span>
                 <div class="course-card-actions">
-                  <a class="btn btn-sm course-action-button" href="courses.php?edit=<?= (int) $course['id'] ?>" aria-label="Edit <?= e($course['title']) ?>" title="Edit course"><i class="bi bi-pencil-square" aria-hidden="true"></i><span>Edit</span></a>
+                  <a class="btn btn-sm course-action-button course-edit-button" href="courses.php?edit=<?= (int) $course['id'] ?>" aria-label="Edit <?= e($course['title']) ?>" title="Edit course"><i class="bi bi-pencil-square" aria-hidden="true"></i><span>Edit</span></a>
                   <form method="post" onsubmit="return confirm('Delete this course and all its lessons? This cannot be undone.');">
                     <input type="hidden" name="csrf_token" value="<?= e(csrf_token()) ?>"><input type="hidden" name="id" value="<?= (int) $course['id'] ?>"><input type="hidden" name="action" value="delete">
                     <button class="btn btn-sm course-action-button course-delete-button" type="submit" aria-label="Delete <?= e($course['title']) ?>" title="Delete course"><i class="bi bi-trash3" aria-hidden="true"></i><span>Delete</span></button>
