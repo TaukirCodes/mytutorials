@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 require_once __DIR__ . '/../config/app.php';
 require_admin();
+$activeAdminPage = 'courses';
 
 $database = db();
 $error = '';
@@ -76,7 +77,10 @@ $courses = $database->query('SELECT courses.*, COUNT(lessons.id) AS lesson_count
 </head>
 <body>
   <?php include __DIR__ . '/topnav.php'; ?>
-  <main class="container py-5 admin-page-content">
+  <div class="sb-layout">
+    <?php include __DIR__ . '/sidenav.php'; ?>
+    <main class="sb-content">
+      <div class="container-fluid admin-page-content">
     <div class="d-flex flex-wrap justify-content-between align-items-end gap-3 mb-4">
       <div><p class="text-uppercase small fw-bold text-primary mb-1">Content management</p><h1 class="h3 fw-bold mb-1">Courses</h1><p class="text-muted mb-0">Create and publish learning tracks.</p></div>
       <a class="btn btn-outline-secondary" href="index.php"><i class="bi bi-arrow-left me-1"></i> Dashboard</a>
@@ -126,6 +130,10 @@ $courses = $database->query('SELECT courses.*, COUNT(lessons.id) AS lesson_count
         </table>
       </div>
     </section>
-  </main>
+      </div>
+    </main>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="assets1/index.js"></script>
 </body>
 </html>

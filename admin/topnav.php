@@ -1,6 +1,6 @@
   <nav class="sb-topnav navbar navbar-expand fixed-top px-3">
     <a class="navbar-brand fw-bold me-3" href="index.php"><i class="bi bi-braces-asterisk me-2"></i>SkillNovi <span>STUDIO</span></a>
-    <?php if (basename($_SERVER['SCRIPT_NAME'] ?? '') === 'index.php'): ?><button class="btn admin-menu-toggle" id="adminSidebarToggle" type="button" aria-label="Toggle admin navigation" aria-controls="sbSidenav"><i class="bi bi-list fs-5"></i></button><?php endif; ?>
+    <button class="btn admin-menu-toggle" id="adminSidebarToggle" type="button" aria-label="Open admin navigation" aria-controls="sbSidenav" aria-expanded="false"><i class="bi bi-list fs-5"></i></button>
     <span class="admin-topnav-context">Content workspace</span>
     <div class="admin-topnav-actions ms-auto">
       <a class="admin-preview-link" href="../index.php"><i class="bi bi-box-arrow-up-right me-1"></i><span>View learner site</span></a>
