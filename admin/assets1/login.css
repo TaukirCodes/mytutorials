@@ -373,6 +373,14 @@
   box-shadow: 0 0 0 4px rgba(8, 127, 120, 0.11);
 }
 
+.admin-auth-input-wrap .form-control:-webkit-autofill,
+.admin-auth-input-wrap .form-control:-webkit-autofill:hover,
+.admin-auth-input-wrap .form-control:-webkit-autofill:focus {
+  -webkit-text-fill-color: #23372f;
+  -webkit-box-shadow: 0 0 0 1000px #fcfdfc inset;
+  transition: background-color 9999s ease-out;
+}
+
 .admin-auth-password-heading {
   display: flex;
   align-items: center;
