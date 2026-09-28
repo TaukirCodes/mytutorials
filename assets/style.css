@@ -642,12 +642,12 @@
       padding: 2rem 0;
       color: var(--text-muted);
     }
-    .lesson-layout #sidebar {
+    .lesson-layout .learning-sidebar {
       position: sticky;
       top: 56px;
       height: calc(100vh - 56px);
       overflow-y: auto;
-      flex: 0 0 280px;
+      flex: 0 0 286px;
     }
     .lesson-main {
       min-width: 0;
@@ -762,6 +762,9 @@
         height: calc(100dvh - 56px);
         margin-left: -286px;
         box-shadow: none;
+      }
+      .lesson-layout .learning-sidebar {
+        position: fixed;
       }
       body.sidebar-open .learning-sidebar {
         margin-left: 0;
