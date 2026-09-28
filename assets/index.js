@@ -31,7 +31,7 @@ const translations = {
     'lesson.ai.code': 'Your code (optional)', 'lesson.ai.code.placeholder': 'Paste only code you are comfortable sharing with OpenAI',
     'lesson.ai.consent': 'I confirm that this question and lesson context may be sent to OpenAI for this request.',
     'lesson.ai.submit': 'Ask tutor',
-    'home.language.notice': 'Interface language changed. Lesson content remains in its author-provided language.',
+    'home.language.notice': 'Interface controls are translated. Course and lesson materials stay in their author-provided language.',
     'stats.paths': 'paths', 'stats.lessons': 'lessons', 'stats.results': 'results',
     'stats.completed': '{count} completed in this browser', 'lesson.start': 'Start lesson', 'lesson.done': 'Completed',
   },
@@ -59,7 +59,7 @@ const translations = {
     'lesson.ai.code': 'आपका code (ज़रूरी नहीं)', 'lesson.ai.code.placeholder': 'सिर्फ वही code डालें जिसे OpenAI के साथ साझा करना ठीक हो',
     'lesson.ai.consent': 'मैं पुष्टि करता हूँ कि यह सवाल और lesson का संदर्भ इस request के लिए OpenAI को भेजा जा सकता है।',
     'lesson.ai.submit': 'Tutor से पूछें',
-    'home.language.notice': 'Interface की भाषा बदली गई है। Lesson का content लेखक की चुनी हुई भाषा में ही रहेगा।',
+    'home.language.notice': 'कुछ interface controls का अनुवाद किया गया है। Course और lesson का content लेखक की भाषा में ही रहेगा।',
     'stats.paths': 'पाथ', 'stats.lessons': 'lessons', 'stats.results': 'नतीजे',
     'stats.completed': 'इस browser में {count} पूरे किए', 'lesson.start': 'Lesson शुरू करें', 'lesson.done': 'पूरा हुआ',
   },
@@ -87,7 +87,7 @@ const translations = {
     'lesson.ai.code': 'Aapka code (optional)', 'lesson.ai.code.placeholder': 'Sirf wahi code paste karein jo OpenAI ke saath share karna theek ho',
     'lesson.ai.consent': 'Main confirm karta hoon ki yeh question aur lesson context is request ke liye OpenAI ko bheja ja sakta hai.',
     'lesson.ai.submit': 'Tutor se poochhein',
-    'home.language.notice': 'Interface language badli gayi hai. Lesson content author ki language mein hi rahega.',
+    'home.language.notice': 'Kuch interface controls translate kiye gaye hain. Course aur lesson content author ki language mein hi rahega.',
     'stats.paths': 'paths', 'stats.lessons': 'lessons', 'stats.results': 'results',
     'stats.completed': 'Is browser mein {count} complete hue', 'lesson.start': 'Lesson shuru karein', 'lesson.done': 'Complete',
   },
@@ -179,6 +179,11 @@ function refreshProgress() {
 
   const summary = document.querySelector('[data-progress-summary]');
   if (summary) summary.textContent = translate('stats.completed').replace('{count}', completed.length);
+  const savedToggle = document.querySelector('[data-show-bookmarks]');
+  if (savedToggle) {
+    savedToggle.textContent = translate(showSavedOnly ? 'home.saved.show' : 'home.saved.filter');
+    savedToggle.setAttribute('aria-pressed', String(showSavedOnly));
+  }
 
   const recommendation = document.querySelector('[data-next-lesson]');
   const recommendationLink = recommendation?.querySelector('[data-next-lesson-link]');
@@ -330,8 +335,6 @@ document.querySelector('[data-ai-form]')?.addEventListener('submit', (event) => 
 
 document.querySelector('[data-show-bookmarks]')?.addEventListener('click', (event) => {
   showSavedOnly = !showSavedOnly;
-  event.currentTarget.setAttribute('aria-pressed', String(showSavedOnly));
-  event.currentTarget.textContent = showSavedOnly ? translate('home.saved.show') : translate('home.saved.filter');
   refreshProgress();
 });
 
