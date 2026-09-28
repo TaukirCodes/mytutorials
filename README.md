@@ -1,6 +1,6 @@
 # SkillNovi
 
-PHP 8 and Bootstrap 5 tutorial portal with a learner library, admin publishing tools, lesson quizzes, local progress, and optional OpenAI assistance.
+PHP 8 and Bootstrap 5 tutorial portal with a learner library, admin publishing tools, lesson quizzes, local progress, and optional Groq AI assistance.
 
 ## Local setup
 
@@ -17,7 +17,7 @@ PHP 8 and Bootstrap 5 tutorial portal with a learner library, admin publishing t
 - Admin lesson drafts and natural-language search can use Groq after an explicit consent checkbox and confirmation. AI-generated content remains unpublished until an admin reviews and saves it.
 - AI requests send only the context needed for that action. Submitted code is reviewed as text and is never executed by the server. Requests are limited to 10 per session per minute.
 
-## OpenAI
+## Groq AI
 
 Add a Groq API key to the local `.env` file as `GROQ_API_KEY` (copy `.env.example` to `.env` first). The key is read only by PHP and must never be committed or pasted into browser JavaScript. AI requests are unavailable until a key is configured; the rest of the portal works without one. Groq offers a free developer tier with rate limits; check your Groq account for current limits and model access.
 
