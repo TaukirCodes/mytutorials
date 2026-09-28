@@ -483,6 +483,7 @@ html[data-theme="dark"] .admin-auth-password-toggle:hover {
 
 html[data-theme="dark"] .admin-auth-form-footer {
   border-color: #34453d;
+  background: transparent !important;
 }
 
 html[data-theme="dark"] .admin-auth-setup-note {
