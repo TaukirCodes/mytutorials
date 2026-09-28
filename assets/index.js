@@ -22,8 +22,8 @@ const translations = {
     'home.search.action': 'Find lessons', 'home.search.consent': 'I confirm this query may be sent to OpenAI.',
     'home.lesson.kicker': 'KEEP GOING', 'home.lesson.title': 'Lessons', 'home.saved': 'Saved lessons',
     'home.saved.show': 'Show all lessons', 'home.saved.filter': 'Saved lessons',
-    'lesson.mark': 'Mark complete', 'lesson.save': 'Save lesson', 'lesson.code': 'Code example',
-    'lesson.copy': 'Copy code', 'lesson.quiz.kicker': 'QUICK CHECK', 'lesson.quiz.title': 'Check your understanding',
+    'lesson.mark': 'Mark complete', 'lesson.save': 'Save lesson', 'lesson.saved': 'Saved', 'lesson.code': 'Code example',
+    'lesson.copy': 'Copy code', 'lesson.copied': 'Copied', 'lesson.quiz.kicker': 'QUICK CHECK', 'lesson.quiz.title': 'Check your understanding',
     'lesson.quiz.submit': 'Check answer', 'lesson.ai.kicker': 'LEARN WITH CONTEXT', 'lesson.ai.title': 'Ask the AI tutor',
     'lesson.ai.description': 'Your question, this lesson, and any code you add below will be sent to OpenAI only after you confirm this request.',
     'lesson.ai.mode': 'What do you want help with?', 'lesson.ai.explain': 'Explain this lesson',
@@ -50,8 +50,8 @@ const translations = {
     'home.search.action': 'Lessons खोजें', 'home.search.consent': 'मैं सहमत हूँ कि यह query इस request के लिए OpenAI को भेजी जा सकती है।',
     'home.lesson.kicker': 'आगे सीखें', 'home.lesson.title': 'Lessons', 'home.saved': 'सेव किए lessons',
     'home.saved.show': 'सभी lessons दिखाएँ', 'home.saved.filter': 'सेव किए lessons',
-    'lesson.mark': 'पूरा मार्क करें', 'lesson.save': 'Lesson सेव करें', 'lesson.code': 'Code उदाहरण',
-    'lesson.copy': 'Code कॉपी करें', 'lesson.quiz.kicker': 'छोटी जाँच', 'lesson.quiz.title': 'समझ को जाँचें',
+    'lesson.mark': 'पूरा मार्क करें', 'lesson.save': 'Lesson सेव करें', 'lesson.saved': 'सेव हुआ', 'lesson.code': 'Code उदाहरण',
+    'lesson.copy': 'Code कॉपी करें', 'lesson.copied': 'कॉपी हो गया', 'lesson.quiz.kicker': 'छोटी जाँच', 'lesson.quiz.title': 'समझ को जाँचें',
     'lesson.quiz.submit': 'जवाब जाँचें', 'lesson.ai.kicker': 'पाठ के संदर्भ में सीखें', 'lesson.ai.title': 'AI tutor से पूछें',
     'lesson.ai.description': 'आपकी पुष्टि के बाद ही आपका सवाल, यह lesson और दिया गया code OpenAI को भेजा जाएगा।',
     'lesson.ai.mode': 'आप किस चीज़ में मदद चाहते हैं?', 'lesson.ai.explain': 'यह lesson समझाएँ',
@@ -78,8 +78,8 @@ const translations = {
     'home.search.action': 'Lessons dhoondein', 'home.search.consent': 'Main confirm karta hoon ki yeh query is request ke liye OpenAI ko bheji ja sakti hai.',
     'home.lesson.kicker': 'AAPKA NEXT STEP', 'home.lesson.title': 'Lessons', 'home.saved': 'Saved lessons',
     'home.saved.show': 'Saare lessons dekhein', 'home.saved.filter': 'Saved lessons',
-    'lesson.mark': 'Complete mark karein', 'lesson.save': 'Lesson save karein', 'lesson.code': 'Code example',
-    'lesson.copy': 'Code copy karein', 'lesson.quiz.kicker': 'QUICK CHECK', 'lesson.quiz.title': 'Samajh check karein',
+    'lesson.mark': 'Complete mark karein', 'lesson.save': 'Lesson save karein', 'lesson.saved': 'Saved', 'lesson.code': 'Code example',
+    'lesson.copy': 'Code copy karein', 'lesson.copied': 'Copied', 'lesson.quiz.kicker': 'QUICK CHECK', 'lesson.quiz.title': 'Samajh check karein',
     'lesson.quiz.submit': 'Answer check karein', 'lesson.ai.kicker': 'CONTEXT KE SAATH SEEKHEIN', 'lesson.ai.title': 'AI tutor se poochhein',
     'lesson.ai.description': 'Aapki confirmation ke baad hi aapka question, yeh lesson aur diya gaya code OpenAI ko bheja jayega.',
     'lesson.ai.mode': 'Kis cheez mein help chahiye?', 'lesson.ai.explain': 'Yeh lesson samjhein',
@@ -209,13 +209,13 @@ function refreshProgress() {
   const lessonId = document.querySelector('[data-progress-toggle]')?.dataset.lessonId;
   const progressButton = document.querySelector('[data-progress-toggle]');
   if (progressButton && lessonId) {
-    setToggleLabel(progressButton, completed.includes(lessonId), 'Completed', 'Mark complete', 'bi-check2-circle', 'bi-circle');
+    setToggleLabel(progressButton, completed.includes(lessonId), translate('lesson.done'), translate('lesson.mark'), 'bi-check2-circle', 'bi-circle');
   }
 
   const bookmarkButton = document.querySelector('[data-bookmark-toggle]');
   const bookmarkId = bookmarkButton?.dataset.lessonId;
   if (bookmarkButton && bookmarkId) {
-    setToggleLabel(bookmarkButton, readIds(bookmarksKey).includes(bookmarkId), 'Saved', 'Save lesson', 'bi-bookmark-check', 'bi-bookmark');
+    setToggleLabel(bookmarkButton, readIds(bookmarksKey).includes(bookmarkId), translate('lesson.saved'), translate('lesson.save'), 'bi-bookmark-check', 'bi-bookmark');
   }
 }
 
@@ -225,9 +225,12 @@ async function copyCode(button) {
 
   try {
     await navigator.clipboard.writeText(code.textContent ?? '');
-    const original = button.innerHTML;
-    button.innerHTML = '<i class="bi bi-check2 me-1"></i>Copied';
-    window.setTimeout(() => { button.innerHTML = original; }, 1600);
+    const label = button.querySelector('span');
+    if (label) {
+      const original = label.textContent;
+      label.textContent = translate('lesson.copied');
+      window.setTimeout(() => { label.textContent = original; }, 1600);
+    }
   } catch {
     button.textContent = 'Copy unavailable';
   }
