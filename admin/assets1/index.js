@@ -49,7 +49,7 @@ document.querySelector('[data-generate-draft]')?.addEventListener('click', async
     if (status) status.textContent = 'Confirm the AI data-sharing notice first.';
     return;
   }
-  if (!window.confirm('This sends the selected course and topic to OpenAI to generate a lesson and quiz draft. Continue?')) return;
+  if (!window.confirm('This sends the selected course and topic to Groq to generate a lesson and quiz draft. Continue?')) return;
 
   const data = new FormData();
   data.set('mode', 'draft');
